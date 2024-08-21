@@ -65,5 +65,4 @@ jobs:
 
       - name: Lint Code
         run: |
-          npm run vscode:prepublish
           npm run lint

@@ -83,7 +83,6 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
@@ -95,6 +94,7 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src --ext ts",
     "test": "vscode-test",
+    "vscode:prepublish": "npm run package",
     "deploy": "vsce publish"
   },
   "devDependencies": {
