@@ -25,6 +25,7 @@ jobs:
   checkout:
     name: "Checkout VS Code Extension"
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -61,3 +62,8 @@ jobs:
       - name: Run Tests
         run: npm test
         if: runner.os != 'Linux'
+
+      - name: Lint Code
+        run: |
+          npm run vscode:prepublish
+          npm run lint
