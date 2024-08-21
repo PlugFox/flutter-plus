@@ -3,7 +3,7 @@
   "displayName": "Flutter Plus",
   "description": "Extension with various improvements for Flutter",
   "icon": "assets/logo.png",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "pricing": "Free",
   "engines": {
     "vscode": "^1.92.0"
@@ -95,9 +95,10 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src --ext ts",
     "test": "vscode-test",
-    "deploy": "vsce publish --yarn"
+    "deploy": "vsce publish"
   },
   "devDependencies": {
+    "@vscode/vsce": "^3.0.0",
     "@types/vscode": "^1.92.0",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
