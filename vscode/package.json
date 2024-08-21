@@ -2,20 +2,84 @@
   "name": "flutter-plus",
   "displayName": "Flutter Plus",
   "description": "Extension with various improvements for Flutter",
+  "icon": "assets/logo.png",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.92.0"
   },
+  "publisher": "Plague Fox",
+  "bugs": {
+    "url": "https://github.com/PlugFox/flutter-plus/issues",
+    "email": "plugfox@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PlugFox/flutter-plus"
+  },
+  "homepage": "https://github.com/PlugFox/flutter-plus",
   "categories": [
-    "Other"
+    "Snippets",
+    "Programming Languages"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "dart",
+    "flutter",
+    "snippets",
+    "fox"
+  ],
+  "activationEvents": [
+    "onCommand:extension.sealed-states",
+    "workspaceContains:**/pubspec.yaml"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "flutter-plus.helloWorld",
-        "title": "Hello World"
+        "command": "flutter-plus.sealed-states",
+        "title": "Create Sealed States"
+      },
+      {
+        "command": "flutter-plus.wrap-listenablebuilder",
+        "title": "Wrap with ListenableBuilder"
+      },
+      {
+        "command": "flutter-plus.wrap-valuelistenablebuilder",
+        "title": "Wrap with ValueListenableBuilder<T>"
+      }
+    ],
+    "submenus": [
+      {
+        "id": "flutter-plus.submenu",
+        "label": "Flutter Plus",
+        "icon": "assets/logo.png"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorLangId == dart",
+          "submenu": "flutter-plus.submenu",
+          "group": "flutter-plus"
+        }
+      ],
+      "flutter-plus.submenu": [
+        {
+          "when": "editorLangId == dart",
+          "command": "flutter-plus.sealed-states"
+        }
+      ],
+      "commandPalette": [
+
+      ]
+    },
+    "snippets": [
+      {
+        "language": "dart",
+        "path": "./snippets/dart.json"
+      },
+      {
+        "language": "dart",
+        "path": "./snippets/flutter.json"
       }
     ]
   },
