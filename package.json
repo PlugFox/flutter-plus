@@ -4,6 +4,7 @@
   "description": "Extension with various improvements for Flutter",
   "icon": "assets/logo.png",
   "version": "0.0.1",
+  "pricing": "Free",
   "engines": {
     "vscode": "^1.92.0"
   },
