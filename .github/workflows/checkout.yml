@@ -36,15 +36,15 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github
-            src/
-            *.json
-            *.js
-            *.mjs
-            README.md
-            CHANGELOG.md
+        #with:
+        #  sparse-checkout: |
+        #    .github
+        #    src/
+        #    *.json
+        #    *.js
+        #    *.mjs
+        #    README.md
+        #    CHANGELOG.md
 
       - name: Install Node.js
         uses: actions/setup-node@v4
