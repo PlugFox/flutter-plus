@@ -1,5 +1,4 @@
 {
-    
   "Material App": {
     "scope": "flutter, dart",
     "prefix": "mateapp",
@@ -41,15 +40,9 @@
     "body": [
       "import 'dart:async';\n",
       "import 'package:flutter/cupertino.dart';\n\n",
-      "void main() => runZonedGuarded<Future<void>>(() async {",
-      "      runApp(const App());",
-      "    }, (error, stackTrace) => log(",
-      "         'Top level exception',",
-      "         error: error",
-      "         stackTrace: stackTrace,",
-      "         level: 1000,",
-      "         name: 'main',",
-      "      ),",
+      "void main() => runZonedGuarded<void>(",
+      "      () => runApp(const App()),",
+      "      (error, stackTrace) => print('Top level exception: \\$error\\n\\$stackTrace'), // ignore: avoid_print",
       "    );\n",
       "/// {@template app}",
       "/// App widget.",
