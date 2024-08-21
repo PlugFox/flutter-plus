@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 *.vsix
+
+# Flutter & Dart playground
+playground/

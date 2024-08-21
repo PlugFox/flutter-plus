@@ -1,6 +1,6 @@
 /* eslint-disable curly */
 
-import { TextEditor, Selection, Position } from "vscode";
+import { Position, Selection, TextEditor } from "vscode";
 
 const openBracket = "(";
 const closeBracket = ")";
