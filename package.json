@@ -7,7 +7,7 @@
   "engines": {
     "vscode": "^1.92.0"
   },
-  "publisher": "Plague Fox",
+  "publisher": "plugfox",
   "bugs": {
     "url": "https://github.com/PlugFox/flutter-plus/issues",
     "email": "plugfox@gmail.com"
@@ -68,9 +68,7 @@
           "command": "flutter-plus.sealed-states"
         }
       ],
-      "commandPalette": [
-
-      ]
+      "commandPalette": []
     },
     "snippets": [
       {
