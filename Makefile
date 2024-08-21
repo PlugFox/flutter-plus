@@ -29,6 +29,10 @@ setup: ## setup environment
 	@npm install
 	@npm install -g @vscode/vsce
 
+.PHONY: login
+login: ## login to vsce
+	@vsce login plugfox
+
 .PHONY: build
 build: setup ## build extension
 	@vsce package
@@ -37,8 +41,12 @@ build: setup ## build extension
 publish: build ## publish extension
 	@vsce publish
 
+.PHONY: minor
+minor: build ## publish minor version
+	@vsce publish minor
+
 .PHONY: test
-test: ## go test
+test: ## run tests
 	@npm install
 	@npm test
 
@@ -47,10 +55,6 @@ diff: ## git diff
 	$(call print-target)
 	@git diff --exit-code
 	@RES=$$(git status --porcelain) ; if [ -n "$$RES" ]; then echo $$RES && exit 1 ; fi
-
-.PHONY: minor
-minor: ## publish minor version
-	@vsce publish minor
 
 define print-target
     @printf "Executing target: \033[36m$@\033[0m\n"
