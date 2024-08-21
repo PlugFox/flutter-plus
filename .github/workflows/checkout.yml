@@ -1,0 +1,63 @@
+name: Checkout VS Code Extension
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - "main"
+      - "master"
+      - "dev"
+      - "develop"
+      - "feature/**"
+      - "bugfix/**"
+      - "hotfix/**"
+      - "support/**"
+    paths:
+      - .github/workflows/*.yml
+      - "README.md"
+      - "CHANGELOG.md"
+      - "**.json"
+      - "**.ts"
+      - "**.js"
+      - "**.mjs"
+
+jobs:
+  checkout:
+    name: "Checkout VS Code Extension"
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            src/
+            *.json
+            *.js
+            *.mjs
+            README.md
+            CHANGELOG.md
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: xvfb-run -a npm test
+        if: runner.os == 'Linux'
+
+      - name: Run Tests
+        run: npm test
+        if: runner.os != 'Linux'
