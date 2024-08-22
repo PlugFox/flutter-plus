@@ -46,6 +46,10 @@
       {
         "command": "flutter-plus.wrap-valuelistenablebuilder",
         "title": "Wrap with ValueListenableBuilder<T>"
+      },
+      {
+        "command": "flutter-plus.wrap-repaintboundary",
+        "title": "Wrap with RepaintBoundary"
       }
     ],
     "submenus": [

@@ -2,7 +2,7 @@
 
 ## How to add widget wrappper
 
-1. Add command to package.json
+1. Add command to `package.json`
 
 ```json
 {
@@ -17,7 +17,7 @@
 }
 ```
 
-2. Add snippet to src/commands/wrap-with.command.ts
+2. Add snippet to `src/commands/wrap-with.command.ts`
 
 ```ts
 const snippetListenableBuilder = (widget: string) => {
@@ -32,7 +32,18 @@ export const wrapWithListenableBuilder = async () =>
   wrapWith(snippetListenableBuilder);
 ```
 
-3. Add command to src/extension.ts
+3. Add action to `src/code-actions/code-action-wrap.ts`
+
+```ts
+  return [
+      {
+          command: "flutter-plus.wrap-listenablebuilder",
+          title: "Wrap with ListenableBuilder",
+      }
+  ]
+```
+
+4. Add command to `src/extension.ts`
 
 ```ts
 export function activate(context: vscode.ExtensionContext) {

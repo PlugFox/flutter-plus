@@ -16,6 +16,14 @@ const snippetValueListenableBuilder = (widget: string) => {
 )`;
 };
 
+const snippetRepaintBoundary = (widget: string) => {
+  return `RepaintBoundary(
+  child: ${widget},
+)`;
+};
+
 export const wrapWithListenableBuilder = async () => wrapWith(snippetListenableBuilder);
 
 export const wrapWithValueListenableBuilder = async () => wrapWith(snippetValueListenableBuilder);
+
+export const wrapWithRepaintBoundary = async () => wrapWith(snippetRepaintBoundary);

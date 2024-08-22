@@ -2,6 +2,17 @@
 
 Extension add some useful commands to Flutter development in Visual Studio Code.
 
+## Wrap with...
+
+This package extends your Flutter development experience by providing convenient snippets and commands for wrapping widgets with other commonly used Flutter widgets, similar to the "Wrap with..." functionality in Flutter's built-in extension for VS Code. These additions streamline the process of encapsulating your widgets within other widgets that enhance functionality or control, such as state management, repaint isolation, and more.
+
+Simply select the widget you want to wrap, and choose the appropriate "Wrap with..." command from the command palette, or use the provided snippets to quickly insert the desired wrapper code into your widget tree.
+
+- **Wrap with ListenableBuilder**: Easily wrap any widget with a `ListenableBuilder` to rebuild the widget based on changes in a `Listenable` object.
+- **Wrap with ValueListenableBuilder<T>**: Automatically wrap your widget with a `ValueListenableBuilder` to react to changes in a `ValueListenable<T>`.
+- **Wrap with RepaintBoundary**: Encapsulate your widget within a `RepaintBoundary` to isolate its repaint process, improving performance in complex UIs.
+
+
 ## Markdown snippets
 
 | Shortcut            | Description                                                                                                                                                                             |
