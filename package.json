@@ -38,22 +38,6 @@
       {
         "command": "flutter-plus.sealed-states",
         "title": "Create Sealed States"
-      },
-      {
-        "command": "flutter-plus.wrap-sizedbox",
-        "title": "Wrap with SizedBox"
-      },
-      {
-        "command": "flutter-plus.wrap-listenablebuilder",
-        "title": "Wrap with ListenableBuilder"
-      },
-      {
-        "command": "flutter-plus.wrap-valuelistenablebuilder",
-        "title": "Wrap with ValueListenableBuilder<T>"
-      },
-      {
-        "command": "flutter-plus.wrap-repaintboundary",
-        "title": "Wrap with RepaintBoundary"
       }
     ],
     "submenus": [
@@ -92,7 +76,32 @@
         "language": "dart",
         "path": "./snippets/flutter.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Custom Wraps",
+      "properties": {
+        "flutterplus.customWraps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "scripts": {
     "compile": "npm run check-types && npm run lint && node esbuild.js",
