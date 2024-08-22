@@ -63,6 +63,29 @@ export const sealedStates = async (uri: Uri) => {
     return acc;
   }, {} as Record<string, { original: string, capitalized: string, snakeCase: string }>);
 
+  const options = [
+    { label: "Generate pattern matching", picked: true, id: 'patternMatching' },
+    { label: "Generate equality operator (==)", picked: true, id: 'equalityOperator' },
+    { label: "Generate toString method", picked: true, id: 'toStringMethod' },
+    { label: "Generate property getters", picked: true, id: 'propertyGetters' },
+    { label: "Generate type alias", picked: true, id: 'typeAlias' },
+    { label: "Generate to/fromJson methods", picked: false, id: 'jsonMethods' },
+    { label: "Generate Initial state", picked: true, id: 'initialState' },
+  ];
+
+  const selectedOptions = await vscode.window.showQuickPick(options, {
+    canPickMany: true,
+    placeHolder: 'Select the options you want to generate',
+  }) ?? [];
+
+  let patternMatchingOption = selectedOptions.find(option => option.id === 'patternMatching') !== undefined;
+  let equalityOperatorOption = selectedOptions.find(option => option.id === 'equalityOperator') !== undefined;
+  let toStringMethodOption = selectedOptions.find(option => option.id === 'toStringMethod') !== undefined;
+  let propertyGettersOption = selectedOptions.find(option => option.id === 'propertyGetters') !== undefined;
+  let typeAliasOption = selectedOptions.find(option => option.id === 'typeAlias') !== undefined;
+  let jsonMethodsOption = selectedOptions.find(option => option.id === 'jsonMethods') !== undefined;
+  let initialStateOption = selectedOptions.find(option => option.id === 'initialState') !== undefined;
+
   // Generate the code using a StringBuilder approach
   let codeBuilder: string[] = [];
 
