@@ -2,7 +2,7 @@
     "Main entry point": {
         "scope": "flutter, dart",
         "prefix": "main",
-        "description": "Main entry point.",
+        "description": "Generates a main function with error handling and zone management for Dart applications.",
         "body": [
             "import 'dart:async';\n",
             "@pragma('vm:entry-point')",
@@ -17,7 +17,7 @@
     "Try-catch-finally block": {
         "scope": "flutter, dart",
         "prefix": "try",
-        "description": "Try-catch-finally block.",
+        "description": "Creates a try-catch-finally block, useful for managing exceptions and ensuring cleanup code runs.",
         "body": [
             "try {",
             "  // ...",
@@ -31,13 +31,13 @@
     "Timeout handler": {
         "scope": "flutter, dart",
         "prefix": "timeout",
-        "description": "Timeout handler.",
+        "description": "Creates a timeout handler for setting execution limits on asynchronous operations.",
         "body": "timeout(const Duration(milliseconds: 5000))${0:;}"
     },
     "Stopwatch": {
         "scope": "flutter, dart",
         "prefix": "stopwatch",
-        "description": "Stopwatch. Used to measure elapsed time.",
+        "description": "Initializes a Stopwatch to measure and log elapsed time for code execution.",
         "body": [
             "final stopwatch = Stopwatch()..start();",
             "try {",
@@ -54,10 +54,11 @@
     "Platform conditional imports": {
         "scope": "flutter, dart",
         "prefix": [
+            "conditional",
             "conditional_imports",
             "import_conditional"
         ],
-        "description": "Platform conditional imports",
+        "description": "Generates platform-specific imports based on the environment (VM or JS), ensuring compatibility across different platforms.",
         "body": [
             "import 'stub.dart'",
             "    // ignore: uri_does_not_exist",
@@ -72,7 +73,7 @@
             "dvd",
             "divider_comment"
         ],
-        "description": "Divider comment line. Used to separate sections of code.",
+        "description": "Inserts a divider comment line, useful for visually separating sections of code.",
         "body": "// --- ${1} --- //\n\n$0"
     },
     "Reverse bypass": {
@@ -80,7 +81,7 @@
         "prefix": [
             "reverseList"
         ],
-        "description": "Reverse list traversal in a loop",
+        "description": "Generates a loop for traversing a list in reverse order.",
         "body": [
             "for (var i = list.length - 1; i >= 0; i--) $0"
         ]
@@ -88,7 +89,7 @@
     "Part": {
         "scope": "flutter, dart",
         "prefix": "part",
-        "description": "Part of file",
+        "description": "Adds a part directive to include the specified Dart file as part of the current library.",
         "body": [
             "part '${TM_FILENAME_BASE}.g.dart';$0"
         ]
@@ -96,7 +97,7 @@
     "Mocks": {
         "scope": "flutter, dart",
         "prefix": "mocks",
-        "description": "Import mocks file",
+        "description": "Imports a Dart file containing mock implementations for testing purposes.",
         "body": [
             "import '${TM_FILENAME_BASE}.mocks.dart';$0"
         ]
@@ -108,7 +109,7 @@
             "equals",
             "=="
         ],
-        "description": "Hash Code and Equals override",
+        "description": "Generates hash code and equals methods, overriding the `==` operator and the `hashCode` getter for custom object comparison.",
         "body": [
             "@override",
             "int get hashCode => id.hashCode;\n",
@@ -125,7 +126,7 @@
             "nosm",
             "noSuchMethod"
         ],
-        "description": "This method is invoked when a non-existent method or property is accessed.",
+        "description": "Implements the `noSuchMethod` method, handling calls to non-existent methods or properties.",
         "body": [
             "@override",
             "dynamic noSuchMethod(Invocation invocation) {",
@@ -139,7 +140,7 @@
             "test",
             "unitTest"
         ],
-        "description": "Create a test function",
+        "description": "Creates a test function, setting up a basic test case using the `test` package.",
         "body": [
             "test('${1:test description}', () {",
             "  ${0:expect(true, isTrue);}",
@@ -152,7 +153,7 @@
             "pragma",
             "@pragma"
         ],
-        "description": "Pragma annotation https://mrale.ph/dartvm/pragmas.html",
+        "description": "Inserts a pragma directive to optimize or modify Dart VM/compiler behavior based on the specified options.",
         "body": "@pragma(${1|'vm:entry-point','vm:never-inline','vm:prefer-inline','dart2js:tryInline','vm:notify-debugger-on-exception','vm:invisible','vm:always-consider-inlining','flutter:keep-to-string','flutter:keep-to-string-in-subtypes'|})"
     },
     "Dart doc disable documentation": {
@@ -161,7 +162,7 @@
             "doc-disabled",
             "@doc-disabled"
         ],
-        "description": "No documentation annotation",
+        "description": "Adds a comment annotation to disable documentation generation for the specified block of code.",
         "body": []
     },
     "Dart doc category": {
@@ -170,7 +171,7 @@
             "doc-category",
             "@doc-category"
         ],
-        "description": "Add category to documentation",
+        "description": "Categorizes a block of documentation with the specified category or subcategory tags.",
         "body": [
             "/// {@${1|category,subCategory|} ${0}}"
         ]
@@ -181,7 +182,7 @@
             "doc-image",
             "@doc-image"
         ],
-        "description": "Add image to documentation",
+        "description": "Embeds an image within a block of documentation, using the specified URL as the source.",
         "body": [
             "/// {@image <image alt='' src='${0:https://host.tld/path/to/image.png}'>}"
         ]
@@ -192,7 +193,7 @@
             "doc-animation",
             "@doc-animation"
         ],
-        "description": "Add animation to documentation",
+        "description": "Embeds an animation within a block of documentation, with options for specifying the size and source URL.",
         "body": "/// {@animation name 100 200 ${0:https://host.tld/path/to/video.mp4}}"
     },
     "Dart doc new template": {
@@ -205,7 +206,7 @@
             "doc-new-macro",
             "@doc-template"
         ],
-        "description": "Creates a new dartdoc template with current file's name as its prefix.",
+        "description": "Creates a new Dart documentation template with the current file's name as the prefix, useful for reusing content across multiple documentation blocks.",
         "body": [
             "/// {@template ${1:$TM_FILENAME_BASE}}",
             "/// ${0:Body of the template}",
@@ -222,7 +223,7 @@
             "doc-use-macro",
             "@doc-macro"
         ],
-        "description": "Uses existing dartdoc macro with current file's name as its prefix.",
+        "description": "Inserts an existing Dart documentation macro, using the current file's name as the prefix, to maintain consistency in documentation.",
         "body": "/// {@macro ${0:$TM_FILENAME_BASE}}"
     },
     "Dart doc inject html": {
@@ -233,7 +234,7 @@
             "inject-html",
             "@doc-html"
         ],
-        "description": "Injects html into the current comment",
+        "description": "Injects custom HTML into a documentation comment, allowing for rich formatting or content inclusion.",
         "body": [
             "/// {@inject-html}",
             "/// ${0:<p>[The HTML to inject.]()</p>}",
@@ -246,7 +247,7 @@
             "deprecated",
             "@deprecated"
         ],
-        "description": "Create a new deprecated annotation. Used to mark a class, method, or property as deprecated.",
+        "description": "Marks a class, method, or property as deprecated, indicating that it should no longer be used and may be removed in future versions.",
         "body": "@Deprecated('${0:Reason}')"
     },
     "Meta": {
@@ -257,7 +258,7 @@
             "@annotation",
             "annotation"
         ],
-        "description": "Meta annotation",
+        "description": "Applies a meta annotation to a class, method, or property, providing additional metadata for tooling or code analysis purposes.",
         "body": "@${1|immutable,useResult,internal,protected,literal,mustCallSuper,sealed,alwaysThrows,factory,visibleForOverriding,visibleForTesting,experimental,nonVirtual,doNotStore,optionalTypeArgs|}"
     },
     "Coverage": {
@@ -265,7 +266,7 @@
         "prefix": [
             "coverage"
         ],
-        "description": "Coverage annotation",
+        "description": "Adds a coverage annotation to mark lines or blocks of code that should be ignored by test coverage tools.",
         "body": "// coverage:${1|ignore-line,ignore-start,ignore-end,ignore-file|}"
     }
 }

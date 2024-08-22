@@ -14,29 +14,29 @@ Extension add some useful commands to Flutter development in Visual Studio Code.
 
 | Shortcut            | Description                                                                                                                                                                             |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| main                | Create a new main function. The entry point of a Dart app.                                                                                                                              |
-| try                 | Create a new try-catch block. Used to handle exceptions.                                                                                                                                |
-| timeout             | Create a new timeout block. Used to handle timeouts.                                                                                                                                    |
-| stopwatch           | Create a new Stopwatch. Used to measure elapsed time.                                                                                                                                   |
-| conditional_imports | Create a new conditional import. Used to import a library based on a current environment (VM or JS)                                                                                     |
-| dvd                 | Divider comment line. Used to separate sections of code.                                                                                                                                |
-| reverseList         | Create a new reverse list function. Reverse list traversal in a loop.                                                                                                                   |
-| part                | Create a new part directive. Used to specify a URI where part of the library is located.                                                                                                |
-| mocks               | Import mocks file. Used to import a file with mocks.                                                                                                                                    |
-| equals              | Hash code and equals methods. Used to override the `==` operator and the `hashCode` getter.                                                                                             |
-| nosm                | Create a new noSuchMethod method. Used to implement the `noSuchMethod` method.                                                                                                          |
-| test                | Create a new test function. Used to define a test case.                                                                                                                                 |
-| pragma              | Create a new pragma directive. Used to specify options that affect the behavior of the Dart compiler.                                                                                   |
-| doc-disabled        | Create a new disabled documentation comment. Used to disable a block of documentation comments.                                                                                         |
-| doc-category        | Create a new category documentation comment. Used to categorize a block of documentation comments.                                                                                      |
-| doc-image           | Create a new image documentation comment. Used to add an image to a block of documentation comments.                                                                                    |
-| doc-animation       | Create a new animation documentation comment. Used to add an animation to a block of documentation comments.                                                                            |
-| doc-html            | Create a new HTML documentation comment. Used to add HTML to a block of documentation comments.                                                                                         |
-| newtmpl             | Creates a new dartdoc template with current file's name as its prefix.                                                                                                                  |
-| usetmpl             | Uses existing dartdoc macro with current file's name as its prefix.                                                                                                                     |
-| deprecated          | Create a new deprecated annotation. Used to mark a class, method, or property as deprecated.                                                                                            |
-| meta                | Create a new meta annotation. Used to annotate a class, method, or property with metadata.                                                                                              |
-| coverage            | Create a comment line for coverage. Used to mark a line or block of code that is not covered by tests.                                                                                  |
+| main                | Generates a main function with error handling and zone management for Dart applications.                                                                                                |
+| try                 | Creates a try-catch-finally block, useful for managing exceptions and ensuring cleanup code runs.                                                                                       |
+| timeout             | Creates a timeout handler for setting execution limits on asynchronous operations.                                                                                                      |
+| stopwatch           | Initializes a Stopwatch to measure and log elapsed time for code execution.                                                                                                             |
+| conditional         | Generates platform-specific imports based on the environment (VM or JS), ensuring compatibility across different platforms.                                                             |
+| dvd                 | Inserts a divider comment line, useful for visually separating sections of code.                                                                                                        |
+| reverseList         | Generates a loop for traversing a list in reverse order.                                                                                                                                |
+| part                | Adds a part directive to include the specified Dart file as part of the current library.                                                                                                |
+| mocks               | Imports a Dart file containing mock implementations for testing purposes.                                                                                                               |
+| equals              | Generates hash code and equals methods, overriding the `==` operator and the `hashCode` getter for custom object comparison.                                                            |
+| nosm                | Implements the `noSuchMethod` method, handling calls to non-existent methods or properties.                                                                                             |
+| test                | Creates a test function, setting up a basic test case using the `test` package.                                                                                                         |
+| pragma              | Inserts a pragma directive to optimize or modify Dart VM/compiler behavior based on the specified options.                                                                              |
+| doc-disabled        | Adds a comment annotation to disable documentation generation for the specified block of code.                                                                                          |
+| doc-category        | Categorizes a block of documentation with the specified category or subcategory tags.                                                                                                   |
+| doc-image           | Embeds an image within a block of documentation, using the specified URL as the source.                                                                                                 |
+| doc-animation       | Embeds an animation within a block of documentation, with options for specifying the size and source URL.                                                                               |
+| doc-html            | Injects custom HTML into a documentation comment, allowing for rich formatting or content inclusion.                                                                                    |
+| newtmpl             | Creates a new Dart documentation template with the current file's name as the prefix, useful for reusing content across multiple documentation blocks.                                  |
+| usetmpl             | Inserts an existing Dart documentation macro, using the current file's name as the prefix, to maintain consistency in documentation.                                                    |
+| deprecated          | Marks a class, method, or property as deprecated, indicating that it should no longer be used and may be removed in future versions.                                                    |
+| meta                | Applies a meta annotation to a class, method, or property, providing additional metadata for tooling or code analysis purposes.                                                         |
+| coverage            | Adds a coverage annotation to mark lines or blocks of code that should be ignored by test coverage tools.                                                                               |
 
 
 ## Flutter snippets
