@@ -13,6 +13,10 @@ export class CodeActionWrap implements CodeActionProvider {
 
         return [
             {
+                command: "flutter-plus.wrap-sizedbox",
+                title: "Wrap with SizedBox",
+            },
+            {
                 command: "flutter-plus.wrap-listenablebuilder",
                 title: "Wrap with ListenableBuilder",
             },

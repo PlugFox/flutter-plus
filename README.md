@@ -8,6 +8,7 @@ This package extends your Flutter development experience by providing convenient
 
 Simply select the widget you want to wrap, and choose the appropriate "Wrap with..." command from the command palette, or use the provided snippets to quickly insert the desired wrapper code into your widget tree.
 
+- **Wrap with SizedBox**: Surround your widget with a `SizedBox` to provide constraints on its size, such as width, height, or aspect ratio.
 - **Wrap with ListenableBuilder**: Easily wrap any widget with a `ListenableBuilder` to rebuild the widget based on changes in a `Listenable` object.
 - **Wrap with ValueListenableBuilder<T>**: Automatically wrap your widget with a `ValueListenableBuilder` to react to changes in a `ValueListenable<T>`.
 - **Wrap with RepaintBoundary**: Encapsulate your widget within a `RepaintBoundary` to isolate its repaint process, improving performance in complex UIs.

@@ -9,6 +9,7 @@ import {
 	sealedStates,
 	wrapWithListenableBuilder,
 	wrapWithRepaintBoundary,
+	wrapWithSizedBox,
 	wrapWithValueListenableBuilder,
 } from "./commands";
 
@@ -26,6 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showInformationMessage('Hello World from Flutter Plus!');
 		}), */
 		commands.registerCommand("flutter-plus.sealed-states", sealedStates),
+		commands.registerCommand("flutter-plus.wrap-sizedbox", wrapWithSizedBox),
 		commands.registerCommand("flutter-plus.wrap-listenablebuilder", wrapWithListenableBuilder),
 		commands.registerCommand("flutter-plus.wrap-valuelistenablebuilder", wrapWithValueListenableBuilder),
 		commands.registerCommand("flutter-plus.wrap-repaintboundary", wrapWithRepaintBoundary),

@@ -3,7 +3,7 @@
   "displayName": "Flutter Plus",
   "description": "Extension with various improvements for Flutter",
   "icon": "assets/logo.png",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "pricing": "Free",
   "engines": {
     "vscode": "^1.92.0"
@@ -38,6 +38,10 @@
       {
         "command": "flutter-plus.sealed-states",
         "title": "Create Sealed States"
+      },
+      {
+        "command": "flutter-plus.wrap-sizedbox",
+        "title": "Wrap with SizedBox"
       },
       {
         "command": "flutter-plus.wrap-listenablebuilder",
