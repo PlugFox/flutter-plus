@@ -2,7 +2,7 @@
   "Material App": {
     "scope": "flutter, dart",
     "prefix": "mateapp",
-    "description": "Create a MaterialApp",
+    "description": "Creates a MaterialApp widget, a base application structure using Material Design components.",
     "body": [
       "import 'dart:async';\n",
       "import 'package:flutter/material.dart';\n",
@@ -36,7 +36,7 @@
   "Cupertino App": {
     "scope": "flutter, dart",
     "prefix": "cupeapp",
-    "description": "Create a CupertinoApp",
+    "description": "Creates a CupertinoApp widget, a base application structure using Cupertino (iOS-style) design components.",
     "body": [
       "import 'dart:async';\n",
       "import 'package:flutter/cupertino.dart';\n\n",
@@ -70,7 +70,7 @@
   "Scaffold": {
     "scope": "flutter, dart",
     "prefix": "scaffold",
-    "description": "Create a Scaffold",
+    "description": "Creates a Scaffold widget, the basic structure for Material Design visual layout.",
     "body": [
       "Scaffold(",
       "  appBar: AppBar(",
@@ -90,7 +90,7 @@
       "stl",
       "statelessWidget"
     ],
-    "description": "Snippet for Stateless Widget",
+    "description": "Generates a new StatelessWidget class.",
     "body": [
       "import 'package:flutter/widgets.dart';\n\n",
       "/// {@template ${2:$TM_FILENAME_BASE}}",
@@ -114,7 +114,7 @@
       "stlChild",
       "statelessWidgetWithChild"
     ],
-    "description": "Snippet for Stateless Widget with child",
+    "description": "Generates a new StatelessWidget class with a child widget.",
     "body": [
       "import 'package:flutter/widgets.dart';\n\n",
       "/// {@template ${2:$TM_FILENAME_BASE}}",
@@ -142,7 +142,7 @@
       "stf",
       "statefulWidget"
     ],
-    "description": "Snippet for Stateful Widget",
+    "description": "Generates a new StatefulWidget class.",
     "body": [
       "import 'package:flutter/widgets.dart';",
       "import 'package:meta/meta.dart';\n\n",
@@ -207,7 +207,7 @@
       "stfChild",
       "statefulfWithChild"
     ],
-    "description": "Snippet for Stateful Widget with child",
+    "description": "Generates a new StatefulWidget class with a child widget.",
     "body": [
       "import 'package:flutter/widgets.dart';",
       "import 'package:meta/meta.dart';\n\n",
@@ -279,7 +279,7 @@
       "inh",
       "inheritedWidget"
     ],
-    "description": "Inherited Widget",
+    "description": "Generates an InheritedWidget class.",
     "body": [
       "import 'package:flutter/widgets.dart';\n\n",
       "/// {@template ${2:$TM_FILENAME_BASE}}",
@@ -304,7 +304,7 @@
       "of",
       "maybeOf"
     ],
-    "description": "InheritedWidget.of(BuildContext)",
+    "description": "Creates a static `of` method for an InheritedWidget.",
     "body": [
       "/// The state from the closest instance of this class",
       "/// that encloses the given context, if any.",
@@ -330,7 +330,7 @@
   "stateOf": {
     "scope": "flutter, dart",
     "prefix": "stateOf",
-    "description": "Create a new static `of` method for an InheritedWidget. Returns the nearest widget of the given type T and creates a dependency on it, or null if no appropriate widget is found.",
+    "description": "Creates a static `stateOf` method for a State object.",
     "body": [
       "/// The state from the closest instance of this class",
       "/// that encloses the given context, if any.",
@@ -354,7 +354,7 @@
   "widgetOf": {
     "scope": "flutter, dart",
     "prefix": "widgetOf",
-    "description": "Create a new static `widgetOf` method for an Widget object. Returns the nearest ancestor widget of the given type T, which must be the type of a concrete Widget subclass.",
+    "description": "Creates a static `widgetOf` method for a Widget object.",
     "body": [
       "/// The state from the closest instance of this class",
       "/// that encloses the given context, if any.",
@@ -378,7 +378,7 @@
   "Build Method": {
     "scope": "flutter, dart",
     "prefix": "build",
-    "description": "Describes the part of the user interface represented by this widget.",
+    "description": "Creates a `build` method, describing the part of the UI represented by this widget.",
     "body": [
       "@override",
       "Widget build(BuildContext context) =>",
@@ -391,7 +391,7 @@
       "painter",
       "customPainter"
     ],
-    "description": "Used for creating custom paint",
+    "description": "Creates a CustomPainter class for custom drawing.",
     "body": [
       "/// {@template ${2:$TM_FILENAME_BASE}}",
       "/// ${1:${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2:/camelcase}/}}Painter.",
@@ -419,10 +419,10 @@
       "clipper",
       "customClipper"
     ],
-    "description": "Used for creating custom shapes",
+    "description": "Creates a CustomClipper class for defining custom clipping shapes.",
     "body": [
       "/// {@template ${2:$TM_FILENAME_BASE}}",
-      "/// ${1:${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2:/camelcase}/}}Painter.",
+      "/// ${1:${TM_FILENAME_BASE/(.)(.*)/${1:/upcase}${2:/camelcase}/}}Clipper.",
       "/// {@endtemplate}",
       "class ${1}Clipper extends CustomClipper<Path> {",
       "  /// {@macro ${2}}",
@@ -441,7 +441,7 @@
   "debugFillProperties": {
     "scope": "flutter, dart",
     "prefix": "debugFillProperties",
-    "description": "debugFillProperties",
+    "description": "Creates a `debugFillProperties` method for adding debug properties.",
     "body": [
       "@override",
       "void debugFillProperties(DiagnosticPropertiesBuilder properties) =>",
@@ -460,7 +460,7 @@
   "initState": {
     "scope": "flutter, dart",
     "prefix": "initS",
-    "description": "Called when this object is inserted into the tree. The framework will call this method exactly once for each State object it creates.",
+    "description": "Creates an `initState` method, initializing state when the widget is inserted into the tree.",
     "body": [
       "@override",
       "void initState() {",
@@ -472,19 +472,19 @@
   "dispose": {
     "scope": "flutter, dart",
     "prefix": "dispose",
+    "description": "Creates a `dispose` method, cleaning up resources when the widget is removed from the tree.",
     "body": [
       "@override",
       "void dispose() {",
       "  ${0:}",
       "  super.dispose();",
       "}"
-    ],
-    "description": "Called when this object is removed from the tree permanently. The framework calls this method when this State object will never build again."
+    ]
   },
   "reassemble": {
     "scope": "flutter, dart",
     "prefix": "reassemble",
-    "description": "Called whenever the application is reassembled during debugging, for example during hot reload.",
+    "description": "Creates a `reassemble` method, called during hot reload.",
     "body": [
       "@override",
       "void reassemble(){",
@@ -496,7 +496,7 @@
   "didChangeDependencies": {
     "scope": "flutter, dart",
     "prefix": "didChangeD",
-    "description": "Called when a dependency of this State object changes",
+    "description": "Creates a `didChangeDependencies` method, called when a dependency of this `State` object changes.",
     "body": [
       "@override",
       "void didChangeDependencies() {",
@@ -508,7 +508,7 @@
   "didUpdateWidget": {
     "scope": "flutter, dart",
     "prefix": "didUpdateW",
-    "description": "Called whenever the widget configuration changes.",
+    "description": "Creates a `didUpdateWidget` method, called when the widget’s configuration changes.",
     "body": [
       "@override",
       "void didUpdateWidget (covariant ${1:Type} ${2:oldWidget}) {",
@@ -520,7 +520,7 @@
   "ListView.builder": {
     "scope": "flutter, dart",
     "prefix": "listViewBuilder",
-    "description": "Creates a scrollable, linear array of widgets that are created on demand.Providing a non-null `itemCount` improves the ability of the [ListView] to estimate the maximum scroll extent.",
+    "description": "Creates a `ListView.builder`, a scrollable list that lazily builds its children as they scroll into view.",
     "body": [
       "ListView.builder(",
       "  itemCount: ${1:1},",
@@ -532,7 +532,7 @@
   "ListView.separated": {
     "scope": "flutter, dart",
     "prefix": "listViewSeparated",
-    "description": "Creates a fixed-length scrollable linear array of list 'items' separated by list item 'separators'.",
+    "description": "Creates a `ListView.separated`, a scrollable list with separators between items.",
     "body": [
       "ListView.separated(",
       "  itemCount: ${1:1},",
@@ -548,7 +548,7 @@
   "GridView.builder": {
     "scope": "flutter, dart",
     "prefix": "gridViewBuilder",
-    "description": "Creates a scrollable, 2D array of widgets that are created on demand. Providing a non-null `itemCount` improves the ability of the [GridView] to estimate the maximum scroll extent.",
+    "description": "Creates a `GridView.builder`, a scrollable grid of widgets that are created on demand.",
     "body": [
       "GridView.builder(",
       "  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(",
@@ -564,7 +564,7 @@
   "GridView.count": {
     "scope": "flutter, dart",
     "prefix": "gridViewCount",
-    "description": "Creates a scrollable, 2D array of widgets with a fixed number of tiles in the cross axis.",
+    "description": "Creates a `GridView.count`, a scrollable grid of widgets with a fixed number of tiles in the cross axis.",
     "body": [
       "GridView.count(",
       "  crossAxisSpacing: ${1:1},",
@@ -579,7 +579,7 @@
   "GridView.extent": {
     "scope": "flutter, dart",
     "prefix": "gridViewE",
-    "description": "Creates a scrollable, 2D array of widgets with tiles that each have a maximum cross-axis extent.",
+    "description": "Creates a `GridView.extent`, a scrollable grid of widgets with tiles that each have a maximum cross-axis extent.",
     "body": [
       "GridView.extent(",
       "  maxCrossAxisExtent:  ${1:2},",
@@ -592,7 +592,7 @@
   "Custom Scroll View": {
     "scope": "flutter, dart",
     "prefix": "customScrollV",
-    "description": "Creates a `ScrollView` that creates custom scroll effects using slivers. If the `primary` argument is true, the `controller` must be null.",
+    "description": "Creates a `CustomScrollView`, a scrollable area that creates custom scroll effects using slivers.",
     "body": [
       "CustomScrollView(",
       "  slivers: <Widget>[",
@@ -604,7 +604,7 @@
   "Builder": {
     "scope": "flutter, dart",
     "prefix": "builder",
-    "description": "Creates a widget that delegates its build to a callback.",
+    "description": "Creates a `Builder` widget, delegating the widget building process to a callback.",
     "body": [
       "Builder(",
       "  builder: (context)  =>",
@@ -617,7 +617,7 @@
     "prefix": [
       "wrapWithBuilder"
     ],
-    "description": "Wrap a widget with Builder widget.",
+    "description": "Wraps a widget with a `Builder` widget.",
     "body": [
       "Builder(",
       "  builder: (context)  =>",
@@ -631,7 +631,7 @@
       "stfBuilder",
       "statefulBuilder"
     ],
-    "description": "Creates a widget that both has state and delegates its build to a callback. Useful for rebuilding specific sections of the widget tree.",
+    "description": "Creates a `StatefulBuilder` widget, allowing for state management and rebuilding a specific portion of the widget tree.",
     "body": [
       "StatefulBuilder(",
       "  builder: (context, setState) =>",
@@ -645,7 +645,7 @@
       "strBuilder",
       "streamBuilder"
     ],
-    "description": "Creates a new `StreamBuilder` that builds itself based on the latest snapshot of interaction with the specified `stream`",
+    "description": "Creates a `StreamBuilder` widget, rebuilding itself based on the latest snapshot of interaction with a `Stream`.",
     "body": [
       "StreamBuilder<${1:int}>(",
       "  initialData: ${2:initialData},",
@@ -661,7 +661,7 @@
       "animBuilder",
       "animatedBuilder"
     ],
-    "description": "Creates an Animated Builder. The widget specified to `child` is passed to the `builder`",
+    "description": "Creates an `AnimatedBuilder` widget, rebuilding itself based on an animation.",
     "body": [
       "AnimatedBuilder(",
       "  animation: ${1:animation},",
@@ -677,7 +677,7 @@
       "lisBuilder",
       "listenableBuilder"
     ],
-    "description": "A widget that builds itself based on the latest value of a Listenable it listens to.",
+    "description": "Creates a `ListenableBuilder` widget, rebuilding itself based on the latest value of a `Listenable` it listens to.",
     "body": [
       "ListenableBuilder(",
       "  listenable: ${1: null},",
@@ -693,7 +693,7 @@
       "valLisBuilder",
       "valueListenableBuilder"
     ],
-    "description": "Given a ValueListenable<T> and a builder which builds widgets from concrete values of T, this class will automatically register itself as a listener of the ValueListenable and call the builder with updated values when the value changes.",
+    "description": "Creates a `ValueListenableBuilder` widget, rebuilding itself based on the latest value of a `ValueListenable`.",
     "body": [
       "ValueListenableBuilder<${1:int}>(",
       "  valueListenable: ${2: null},",
@@ -709,7 +709,7 @@
       "switcher",
       "animatedSwitcher"
     ],
-    "description": "Creates an Animated Switcher.",
+    "description": "Creates an `AnimatedSwitcher` widget, switching between two children and animating the transition.",
     "body": [
       "AnimatedSwitcher(",
       "  duration: const Duration(milliseconds: 350),",
@@ -723,7 +723,7 @@
       "orientBuilder",
       "orientationBuilder"
     ],
-    "description": "Creates a builder which allows for the orientation of the device to be specified and referenced",
+    "description": "Creates an `OrientationBuilder` widget, rebuilding itself based on the latest orientation of the device (portrait or landscape).",
     "body": [
       "OrientationBuilder(",
       "  builder: (context, orientation) {",
@@ -738,7 +738,7 @@
       "layBuilder",
       "layoutBuilder"
     ],
-    "description": "Similar to the Builder widget except that the framework calls the builder function at layout time and provides the parent widget's constraints.",
+    "description": "Creates a `LayoutBuilder` widget, rebuilding itself based on the latest layout constraints, useful for responsive layouts.",
     "body": [
       "LayoutBuilder(",
       "  builder: (context, constraints) {",
@@ -753,7 +753,7 @@
       "repBound",
       "repaintBoundary"
     ],
-    "description": "Creates a widget that isolates repaints.",
+    "description": "Creates a `RepaintBoundary` widget, isolating repaints to improve performance.",
     "body": [
       "RepaintBoundary(",
       "  key: ValueKey<String>(${1:name}),",
@@ -764,6 +764,7 @@
   "Single Child ScrollView": {
     "scope": "flutter, dart",
     "prefix": "singleChildSV",
+    "description": "Creates a `SingleChildScrollView` widget, allowing a single child to be scrolled.",
     "body": [
       "SingleChildScrollView(",
       "  controller: ${1:controller,}",
@@ -771,8 +772,7 @@
       "    ${0:}",
       "  ),",
       "),"
-    ],
-    "description": "Creates a scroll view with a single child"
+    ]
   },
   "Future Builder": {
     "scope": "flutter, dart",
@@ -780,6 +780,7 @@
       "futBuilder",
       "futureBuilder"
     ],
+    "description": "Creates a `FutureBuilder` widget, rebuilding itself based on the latest snapshot of interaction with a `Future`.",
     "body": [
       "FutureBuilder(",
       "  future: ${1:Future},",
@@ -788,8 +789,7 @@
       "    return ${3:};",
       "  },",
       "),"
-    ],
-    "description": "Creates a Future Builder. This builds itself based on the latest snapshot of interaction with a Future."
+    ]
   },
   "Tween Animation Builder": {
     "scope": "flutter, dart",
@@ -797,7 +797,7 @@
       "tweenAnimBuilder",
       "tweenAnimationBuilder"
     ],
-    "description": "Widget builder that animates a property of a Widget to a target value whenever the target value changes.",
+    "description": "Creates a `TweenAnimationBuilder` widget, animating a property of a widget to a target value whenever the target value changes.",
     "body": [
       "TweenAnimationBuilder<${3:Object?}>(",
       "  duration: ${1:const Duration(),}",
@@ -813,7 +813,7 @@
       "testWidget",
       "widgetTest"
     ],
-    "description": "Create a testWidgets function",
+    "description": "Creates a `testWidgets` function for testing a widget.",
     "body": [
       "testWidgets(",
       "  \"${1:test description}\",",
