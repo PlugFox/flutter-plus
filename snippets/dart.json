@@ -2,7 +2,7 @@
     "Main entry point": {
         "scope": "flutter, dart",
         "prefix": "main",
-        "description": "Main entry point",
+        "description": "Main entry point.",
         "body": [
             "import 'dart:async';\n",
             "@pragma('vm:entry-point')",
@@ -17,7 +17,7 @@
     "Try-catch-finally block": {
         "scope": "flutter, dart",
         "prefix": "try",
-        "description": "Try-catch-finally block",
+        "description": "Try-catch-finally block.",
         "body": [
             "try {",
             "  // ...",
@@ -31,13 +31,13 @@
     "Timeout handler": {
         "scope": "flutter, dart",
         "prefix": "timeout",
-        "description": "Timeout handler",
+        "description": "Timeout handler.",
         "body": "timeout(const Duration(milliseconds: 5000))${0:;}"
     },
     "Stopwatch": {
         "scope": "flutter, dart",
         "prefix": "stopwatch",
-        "description": "Stopwatch",
+        "description": "Stopwatch. Used to measure elapsed time.",
         "body": [
             "final stopwatch = Stopwatch()..start();",
             "try {",
@@ -66,55 +66,13 @@
             "    if (dart.library.io) 'io.dart';\n"
         ]
     },
-    "Changelog unreleased": {
-        "scope": "md, markdown",
-        "prefix": [
-            "changelog_unreleased",
-            "unreleased"
-        ],
-        "description": "Changelog unreleased",
-        "body": [
-            "## Unreleased",
-            "",
-            "- **ADDED**: ${0}",
-            "- **CHANGED**: ",
-            "- **DEPRECATED**: ",
-            "- **REMOVED**: ",
-            "- **FIXED**: ",
-            "- **SECURITY**: ",
-            "- **REFACTOR**: ",
-            "- **DOCS**: ",
-            "  "
-        ]
-    },
-    "Changelog version": {
-        "scope": "md, markdown",
-        "prefix": [
-            "changelog_version",
-            "version"
-        ],
-        "description": "Changelog version section",
-        "body": [
-            "## ${1:0}.${2:0}.${3:0}",
-            "",
-            "- **ADDED**: ${0}",
-            "- **CHANGED**: ",
-            "- **DEPRECATED**: ",
-            "- **REMOVED**: ",
-            "- **FIXED**: ",
-            "- **SECURITY**: ",
-            "- **REFACTOR**: ",
-            "- **DOCS**: ",
-            "  "
-        ]
-    },
     "Divider": {
         "scope": "flutter, dart",
         "prefix": [
             "dvd",
             "divider_comment"
         ],
-        "description": "Divider comment line",
+        "description": "Divider comment line. Used to separate sections of code.",
         "body": "// --- ${1} --- //\n\n$0"
     },
     "Reverse bypass": {
@@ -191,8 +149,8 @@
     "Pragma": {
         "scope": "flutter, dart",
         "prefix": [
-            "@pragma",
-            "pragma"
+            "pragma",
+            "@pragma"
         ],
         "description": "Pragma annotation https://mrale.ph/dartvm/pragmas.html",
         "body": "@pragma(${1|'vm:entry-point','vm:never-inline','vm:prefer-inline','dart2js:tryInline','vm:notify-debugger-on-exception','vm:invisible','vm:always-consider-inlining','flutter:keep-to-string','flutter:keep-to-string-in-subtypes'|})"
@@ -209,9 +167,7 @@
     "Dart doc category": {
         "scope": "flutter, dart",
         "prefix": [
-            "category",
             "doc-category",
-            "dartdoc-category",
             "@doc-category"
         ],
         "description": "Add category to documentation",
@@ -223,7 +179,6 @@
         "scope": "flutter, dart",
         "prefix": [
             "doc-image",
-            "dartdoc-image",
             "@doc-image"
         ],
         "description": "Add image to documentation",
@@ -235,7 +190,6 @@
         "scope": "flutter, dart",
         "prefix": [
             "doc-animation",
-            "dartdoc-animation",
             "@doc-animation"
         ],
         "description": "Add animation to documentation",
@@ -244,14 +198,14 @@
     "Dart doc new template": {
         "scope": "flutter, dart",
         "prefix": [
+            "newtmpl",
             "@template",
             "template",
-            "dartdoc-new-template",
+            "doc-new-template",
             "doc-new-macro",
-            "newtmpl",
             "@doc-template"
         ],
-        "description": "Creates a new dartdoc template with current file's name as its prefix",
+        "description": "Creates a new dartdoc template with current file's name as its prefix.",
         "body": [
             "/// {@template ${1:$TM_FILENAME_BASE}}",
             "/// ${0:Body of the template}",
@@ -261,24 +215,22 @@
     "Dart doc use macro": {
         "scope": "flutter, dart",
         "prefix": [
+            "usetmpl",
             "@macro",
             "macro",
-            "dartdoc-use-template",
+            "doc-use-template",
             "doc-use-macro",
-            "usetmpl",
             "@doc-macro"
         ],
-        "description": "Uses existing dartdoc macro with current file's name as its prefix",
+        "description": "Uses existing dartdoc macro with current file's name as its prefix.",
         "body": "/// {@macro ${0:$TM_FILENAME_BASE}}"
     },
     "Dart doc inject html": {
         "scope": "flutter, dart",
         "prefix": [
+            "doc-html",
             "@inject-html",
             "inject-html",
-            "dartdoc-html",
-            "doc-html",
-            "html",
             "@doc-html"
         ],
         "description": "Injects html into the current comment",
@@ -291,17 +243,17 @@
     "Deprecated": {
         "scope": "flutter, dart",
         "prefix": [
-            "@deprecated",
-            "deprecated"
+            "deprecated",
+            "@deprecated"
         ],
-        "description": "Deprecated",
+        "description": "Create a new deprecated annotation. Used to mark a class, method, or property as deprecated.",
         "body": "@Deprecated('${0:Reason}')"
     },
     "Meta": {
         "scope": "flutter, dart",
         "prefix": [
-            "@meta",
             "meta",
+            "@meta",
             "@annotation",
             "annotation"
         ],
