@@ -92,7 +92,32 @@
         "language": "dart",
         "path": "./snippets/flutter.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Custom Wraps",
+      "properties": {
+        "flutterplus.customWraps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "scripts": {
     "compile": "npm run check-types && npm run lint && node esbuild.js",
