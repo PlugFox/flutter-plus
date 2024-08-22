@@ -23,6 +23,7 @@ Extension add some useful commands to Flutter development in Visual Studio Code.
 | reverseList         | Generates a loop for traversing a list in reverse order.                                                                                                                                |
 | part                | Adds a part directive to include the specified Dart file as part of the current library.                                                                                                |
 | mocks               | Imports a Dart file containing mock implementations for testing purposes.                                                                                                               |
+| toStr               | Overrides the `toString` method for a custom object, providing a string representation of the object for debugging or logging.                                                          |
 | equals              | Generates hash code and equals methods, overriding the `==` operator and the `hashCode` getter for custom object comparison.                                                            |
 | nosm                | Implements the `noSuchMethod` method, handling calls to non-existent methods or properties.                                                                                             |
 | test                | Creates a test function, setting up a basic test case using the `test` package.                                                                                                         |
@@ -84,3 +85,8 @@ Extension add some useful commands to Flutter development in Visual Studio Code.
 | futBuilder          | Creates a `FutureBuilder` widget, which rebuilds itself based on the latest snapshot of interaction with a `Future`.                                                                    |
 | tweenAnimBuilder    | Creates a `TweenAnimationBuilder` widget, which animates a property of a widget to a target value whenever the target value changes.                                                    |
 | testWidget          | Creates a `testWidgets` function for testing a widget, typically used in Flutter's unit testing framework.                                                                              |
+| row                 | Creates a `Row` widget, which displays its children in a horizontal array.                                                                                                              |
+| col                 | Creates a `Column` widget, which displays its children in a vertical array.                                                                                                             |
+| wrap                | Creates a `Wrap` widget, which displays its children in multiple horizontal or vertical runs, wrapping to the next line when necessary.                                                 |
+| stack               | Creates a `Stack` widget, which allows you to place widgets on top of each other in a z-order.                                                                                          |
+| fittedbox           | Creates a `FittedBox` widget, which scales and positions its child within itself according to the specified fit.                                                                        |

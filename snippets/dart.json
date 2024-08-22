@@ -102,6 +102,15 @@
             "import '${TM_FILENAME_BASE}.mocks.dart';$0"
         ]
     },
+    "toString": {
+        "scope": "flutter, dart",
+        "prefix": "toStr",
+        "description": "Overrides the `toString` method for a custom object, providing a string representation of the object for debugging or logging.",
+        "body": [
+            "@override",
+            "String toString() => '${0}'"
+        ]
+    },
     "Hash Code": {
         "scope": "flutter, dart",
         "prefix": [

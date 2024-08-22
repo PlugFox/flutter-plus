@@ -822,5 +822,83 @@
       "  },",
       ");"
     ]
+  },
+  "Row": {
+    "scope": "flutter, dart",
+    "prefix": "row",
+    "description": "Creates a `Row` widget, which displays its children in a horizontal array.",
+    "body": [
+      "Row(",
+      "  mainAxisSize: MainAxisSize.${1|min,max|},",
+      "  mainAxisAlignment: MainAxisAlignment.${2|start,end,center,spaceBetween,spaceAround,spaceEvenly|},",
+      "  crossAxisAlignment: CrossAxisAlignment.${3|start,end,center,stretch,baseline|},",
+      "  children: <Widget>[",
+      "    // SizedBox, Expanded, Flexible, Spacer, VerticalDivider",
+      "    ${0:Placeholder()},",
+      "  ],",
+      "),"
+    ]
+  },
+  "Column": {
+    "scope": "flutter, dart",
+    "prefix": [
+      "col",
+      "column"
+    ],
+    "description": "Creates a `Column` widget, which displays its children in a vertical array.",
+    "body": [
+      "Column(",
+      "  mainAxisSize: MainAxisSize.${1|min,max|},",
+      "  mainAxisAlignment: MainAxisAlignment.${2|start,end,center,spaceBetween,spaceAround,spaceEvenly|},",
+      "  crossAxisAlignment: CrossAxisAlignment.${3|start,end,center,stretch,baseline|},",
+      "  children: <Widget>[",
+      "    // SizedBox, Expanded, Flexible, Spacer, Divider",
+      "    ${0:Placeholder()},",
+      "  ],",
+      "),"
+    ]
+  },
+  "Wrap": {
+    "scope": "flutter, dart",
+    "prefix": "wrap",
+    "description": "Creates a `Wrap` widget, which displays its children in multiple horizontal or vertical runs.",
+    "body": [
+      "Wrap(",
+      "  direction: Axis.${1|horizontal,vertical|},",
+      "  spacing: ${2:8.0},",
+      "  runSpacing: ${3:4.0},",
+      "  alignment: WrapAlignment.${4|start,end,center,spaceBetween,spaceAround,spaceEvenly|},",
+      "  crossAxisAlignment: WrapCrossAlignment.${5|start,end,center|},",
+      "  verticalDirection: VerticalDirection.${6|down,up|},",
+      "  children: <Widget>[",
+      "    ${0:Placeholder()},",
+      "  ],",
+      "),"
+    ]
+  },
+  "Stack": {
+    "scope": "flutter, dart",
+    "prefix": "stack",
+    "description": "Creates a `Stack` widget, which allows you to place widgets on top of each other in a z-order.",
+    "body": [
+      "Stack(",
+      "  alignment: Alignment.${1|topLeft,topCenter,center|},",
+      "  children: <Widget>[",
+      "    ${0:Placeholder()},",
+      "  ],",
+      "),"
+    ]
+  },
+  "FittedBox": {
+    "scope": "flutter, dart",
+    "prefix": "fittedbox",
+    "description": "Creates a `FittedBox` widget, which scales and positions its child within itself according to the specified fit.",
+    "body": [
+      "FittedBox(",
+      "  fit: BoxFit.${1|scaleDown,fill,contain,cover,fitWidth,fitHeight,none|},",
+      "  alignment: Alignment.${2:center},",
+      "  child: ${0:Placeholder()},",
+      "),"
+    ]
   }
 }
