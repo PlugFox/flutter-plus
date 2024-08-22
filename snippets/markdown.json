@@ -1,0 +1,44 @@
+{
+    "Changelog unreleased": {
+        "scope": "md, markdown",
+        "prefix": [
+            "unreleased",
+            "changelog_unreleased"
+        ],
+        "description": "Changelog unreleased",
+        "body": [
+            "## Unreleased",
+            "",
+            "- **ADDED**: ${0}",
+            "- **CHANGED**: ",
+            "- **DEPRECATED**: ",
+            "- **REMOVED**: ",
+            "- **FIXED**: ",
+            "- **SECURITY**: ",
+            "- **REFACTOR**: ",
+            "- **DOCS**: ",
+            "  "
+        ]
+    },
+    "Changelog version": {
+        "scope": "md, markdown",
+        "prefix": [
+            "version",
+            "changelog_version"
+        ],
+        "description": "Changelog version section",
+        "body": [
+            "## ${1:0}.${2:0}.${3:0}",
+            "",
+            "- **ADDED**: ${0}",
+            "- **CHANGED**: ",
+            "- **DEPRECATED**: ",
+            "- **REMOVED**: ",
+            "- **FIXED**: ",
+            "- **SECURITY**: ",
+            "- **REFACTOR**: ",
+            "- **DOCS**: ",
+            "  "
+        ]
+    }
+}

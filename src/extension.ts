@@ -8,6 +8,7 @@ import {
 import {
 	sealedStates,
 	wrapWithListenableBuilder,
+	wrapWithRepaintBoundary,
 	wrapWithValueListenableBuilder,
 } from "./commands";
 
@@ -27,6 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 		commands.registerCommand("flutter-plus.sealed-states", sealedStates),
 		commands.registerCommand("flutter-plus.wrap-listenablebuilder", wrapWithListenableBuilder),
 		commands.registerCommand("flutter-plus.wrap-valuelistenablebuilder", wrapWithValueListenableBuilder),
+		commands.registerCommand("flutter-plus.wrap-repaintboundary", wrapWithRepaintBoundary),
 
 		languages.registerCodeActionsProvider(
 			DART_MODE,

@@ -3,7 +3,7 @@
   "displayName": "Flutter Plus",
   "description": "Extension with various improvements for Flutter",
   "icon": "assets/logo.png",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "pricing": "Free",
   "engines": {
     "vscode": "^1.92.0"
@@ -46,6 +46,10 @@
       {
         "command": "flutter-plus.wrap-valuelistenablebuilder",
         "title": "Wrap with ValueListenableBuilder<T>"
+      },
+      {
+        "command": "flutter-plus.wrap-repaintboundary",
+        "title": "Wrap with RepaintBoundary"
       }
     ],
     "submenus": [
@@ -72,6 +76,10 @@
       "commandPalette": []
     },
     "snippets": [
+      {
+        "language": "markdown",
+        "path": "./snippets/markdown.json"
+      },
       {
         "language": "dart",
         "path": "./snippets/dart.json"
