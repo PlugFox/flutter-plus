@@ -62,11 +62,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "flutter-plus.pub-get",
-        "title": "Pub Get",
-        "category": "Flutter Plus"
-      },
-      {
         "command": "flutter-plus.sealed-states",
         "title": "Create Sealed States",
         "category": "Flutter Plus"
