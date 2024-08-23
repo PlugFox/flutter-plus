@@ -8,6 +8,19 @@
   "engines": {
     "vscode": "^1.92.0"
   },
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": {
+      "supported": "limited",
+      "description": "Some functionality may be limited for remote files in virtual workspaces."
+    },
+    "untrustedWorkspaces": {
+      "supported": false
+    }
+  },
+  "license": "SEE LICENSE IN LICENSE",
   "publisher": "plugfox",
   "bugs": {
     "url": "https://github.com/PlugFox/flutter-plus/issues",
@@ -23,39 +36,66 @@
     "Programming Languages"
   ],
   "keywords": [
-    "dart",
-    "flutter",
-    "snippets",
-    "fox"
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Formatters",
+    "Debuggers",
+    "Dart",
+    "Flutter",
+    "Actions",
+    "Shortcuts"
   ],
   "activationEvents": [
-    "onCommand:extension.sealed-states",
-    "workspaceContains:**/pubspec.yaml"
+    "onLanguage:dart",
+    "workspaceContains:pubspec.yaml",
+    "workspaceContains:*/pubspec.yaml",
+    "workspaceContains:*/*/pubspec.yaml",
+    "workspaceContains:*.dart",
+    "workspaceContains:*/*.dart",
+    "workspaceContains:*/*/*.dart",
+    "onCommand:flutter.createProject",
+    "onCommand:dart.createProject",
+    "onUri"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "flutter-plus.sealed-states",
-        "title": "Create Sealed States"
+        "title": "Create Sealed States",
+        "category": "Flutter Plus"
       },
       {
         "command": "flutter-plus.wrap-sizedbox",
-        "title": "Wrap with SizedBox"
+        "title": "Wrap with SizedBox",
+        "category": "Flutter Plus"
       },
       {
         "command": "flutter-plus.wrap-listenablebuilder",
-        "title": "Wrap with ListenableBuilder"
+        "title": "Wrap with ListenableBuilder",
+        "category": "Flutter Plus"
       },
       {
         "command": "flutter-plus.wrap-valuelistenablebuilder",
-        "title": "Wrap with ValueListenableBuilder<T>"
+        "title": "Wrap with ValueListenableBuilder<T>",
+        "category": "Flutter Plus"
       },
       {
         "command": "flutter-plus.wrap-repaintboundary",
-        "title": "Wrap with RepaintBoundary"
+        "title": "Wrap with RepaintBoundary",
+        "category": "Flutter Plus"
       }
     ],
+    "views": {
+      "flutter": [
+        {
+          "id": "flutter-plus.sidebar-actions",
+          "name": "Actions",
+          "when": "dart-code:anyFlutterProjectLoaded"
+        }
+      ]
+    },
     "submenus": [
       {
         "id": "flutter-plus.submenu",
@@ -94,6 +134,10 @@
       }
     ]
   },
+  "extensionDependencies": [
+    "Dart-Code.dart-code",
+    "Dart-Code.flutter"
+  ],
   "scripts": {
     "compile": "npm run check-types && npm run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
