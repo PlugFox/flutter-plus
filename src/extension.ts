@@ -1,11 +1,6 @@
 import * as vscode from 'vscode';
 
 import {
-	commands,
-	languages
-} from "vscode";
-
-import {
 	sealedStates,
 	wrapWithListenableBuilder,
 	wrapWithRepaintBoundary,
@@ -22,7 +17,13 @@ import {
 	dartCodeExtensionIdentifier,
 	flutterExtensionIdentifier,
 } from "./constants";
-import { SdkCommands } from './utils/sdk';
+
+/* import fs from 'fs';
+import path from 'path'; */
+
+import {
+	SdkCommands,
+} from './utils';
 
 const DART_MODE = { language: "dart", scheme: "file" };
 
@@ -55,6 +56,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 	//console.log('Congratulations, your extension "flutter-plus" is now active!');
 
 	registerCommands(context);
+	//registerActionButtons(context);
 	registerWrappers(context);
 }
 
@@ -64,18 +66,34 @@ function registerCommands(context: vscode.ExtensionContext) {
 		/* vscode.commands.registerCommand('flutter-plus.helloWorld', () => {
 			vscode.window.showInformationMessage('Hello World from Flutter Plus!');
 		}), */
-		commands.registerCommand("flutter-plus.sealed-states", sealedStates),
+		vscode.commands.registerCommand("flutter-plus.sealed-states", sealedStates),
 	);
 }
+
+/* function registerActionButtons(context: vscode.ExtensionContext) {
+	function runPubGet() {
+		// Example of running `dart pub get` or `flutter pub get`
+		const pubspecPath = path.join(vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '', 'pubspec.yaml');
+		if (fs.existsSync(pubspecPath)) {
+			const pubspecContent = fs.readFileSync(pubspecPath, 'utf8');
+			const isFlutterApp = pubspecContent.includes('flutter:');
+			const command = isFlutterApp ? 'flutter pub get' : 'dart pub get';
+			executeCommand(command);
+		}
+	}
+	context.subscriptions.push(vscode.commands.registerCommand('flutter-plus.pub-get', () => {
+		runPubGet();
+	}));
+} */
 
 /// Register all wrappers (Wrap With...).
 function registerWrappers(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
-		commands.registerCommand("flutter-plus.wrap-sizedbox", wrapWithSizedBox),
-		commands.registerCommand("flutter-plus.wrap-listenablebuilder", wrapWithListenableBuilder),
-		commands.registerCommand("flutter-plus.wrap-valuelistenablebuilder", wrapWithValueListenableBuilder),
-		commands.registerCommand("flutter-plus.wrap-repaintboundary", wrapWithRepaintBoundary),
-		languages.registerCodeActionsProvider(
+		vscode.commands.registerCommand("flutter-plus.wrap-sizedbox", wrapWithSizedBox),
+		vscode.commands.registerCommand("flutter-plus.wrap-listenablebuilder", wrapWithListenableBuilder),
+		vscode.commands.registerCommand("flutter-plus.wrap-valuelistenablebuilder", wrapWithValueListenableBuilder),
+		vscode.commands.registerCommand("flutter-plus.wrap-repaintboundary", wrapWithRepaintBoundary),
+		vscode.languages.registerCodeActionsProvider(
 			DART_MODE,
 			new CodeActionWrap(),
 		),

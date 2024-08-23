@@ -62,6 +62,11 @@
   "contributes": {
     "commands": [
       {
+        "command": "flutter-plus.pub-get",
+        "title": "Pub Get",
+        "category": "Flutter Plus"
+      },
+      {
         "command": "flutter-plus.sealed-states",
         "title": "Create Sealed States",
         "category": "Flutter Plus"
@@ -90,7 +95,7 @@
     "views": {
       "flutter": [
         {
-          "id": "flutter-plus.sidebarActions",
+          "id": "flutter-plus.sidebar-actions",
           "name": "Actions",
           "when": "dart-code:anyFlutterProjectLoaded"
         }
