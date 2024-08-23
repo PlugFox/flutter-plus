@@ -43,7 +43,7 @@ export const sealedStates = async (uri: Uri) => {
   // Prompt the user for the list of states, defaulting to common states
   const statesInput = await vscode.window.showInputBox({
     prompt: 'Enter the states (camelCase) separated by commas',
-    value: 'idle, processing, successful, error, InProgress,Completed, Failed,123, 1, 2, 3;a;b ;;;,,,.;;..,abc, ACAB, МамаМылаРаму, 123abc, abc123',
+    value: 'idle, processing, success, failure',
   });
 
   if (!statesInput) {
