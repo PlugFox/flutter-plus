@@ -180,10 +180,10 @@ export const sealedStates = async (uri: Uri) => {
   }
 
   codeBuilder.push(`}`);
-  codeBuilder.push('');
 
   // Generate the classes for each state
   Object.values(stateFormats).forEach(({ pascalCase, snakeCase }) => {
+    codeBuilder.push('');
     codeBuilder.push(`/// ${pascalCase}`);
     codeBuilder.push(`final class \${1}\\$${pascalCase} extends \${1} {`);
 
@@ -200,54 +200,53 @@ export const sealedStates = async (uri: Uri) => {
     }
 
     codeBuilder.push(`}`);
-    codeBuilder.push('');
   });
 
   // Base class definition with pattern matching methods
   if (patternMatchingOption) {
+    codeBuilder.push('');
     codeBuilder.push(`/// Pattern matching for [\${1}].`);
     codeBuilder.push(`typedef \${1}Match<R, S extends \${1}> = R Function(S element);`);
-    codeBuilder.push('');
   }
 
   // Base class definition
+  codeBuilder.push('');
   codeBuilder.push('@immutable');
   codeBuilder.push(`abstract base class _\\$\${1}Base {`);
   codeBuilder.push(`  const _\\$\${1}Base({required this.data, required this.message});`);
-  codeBuilder.push('');
 
   // Type alias
   if (typeAliasOption) {
+    codeBuilder.push('');
     codeBuilder.push(`  /// Type alias for [\${1}].`);
     codeBuilder.push(`  abstract final String type;`);
-    codeBuilder.push('');
   }
 
   // Data entity payload
+  codeBuilder.push('');
   codeBuilder.push(`  /// Data entity payload.`);
   codeBuilder.push(`  @nonVirtual`);
   codeBuilder.push(`  final ${dataType} data;`);
-  codeBuilder.push('');
 
   // Message or description
+  codeBuilder.push('');
   codeBuilder.push(`  /// Message or description.`);
   codeBuilder.push(`  @nonVirtual`);
   codeBuilder.push(`  final String message;`);
-  codeBuilder.push('');
 
   // Check existence of data
   if (nullableDataOption) {
+    codeBuilder.push('');
     codeBuilder.push(`  /// Has data?`);
     codeBuilder.push(`  bool get hasData => data != null;`);
-    codeBuilder.push('');
   }
 
   // Property getters
   if (propertyGettersOption) {
     Object.values(stateFormats).forEach(({ pascalCase, snakeCase }) => {
+      codeBuilder.push('');
       codeBuilder.push(`  /// Check if is ${pascalCase}.`);
       codeBuilder.push(`  bool get is${pascalCase} => this is \${1}\\$${pascalCase};`);
-      codeBuilder.push('');
     });
   }
 
