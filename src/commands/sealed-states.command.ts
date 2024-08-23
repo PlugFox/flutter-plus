@@ -52,7 +52,9 @@ export const sealedStates = async (uri: Uri) => {
   }
 
   // Prepare a dictionary with different state formats
-  const states = statesInput.split(',').map(state => state.trim());
+  const states = statesInput.split(',').map(state => state.replace(/\s/g, '').trim())
+    .filter((state) => state.length !== 0)
+    .map(state => state.charAt(0).toLowerCase() + state.slice(1));
   if (states.length === 0) {
     vscode.window.showErrorMessage('Invalid states input.');
     return;
@@ -74,7 +76,6 @@ export const sealedStates = async (uri: Uri) => {
     { label: "Generate Initial state", picked: true, id: 'initialState' },
     { label: "Generate property getters", picked: true, id: 'propertyGetters' },
     { label: "Generate type alias", picked: true, id: 'typeAlias' },
-    { label: "Generate to/fromJson methods", picked: false, id: 'jsonMethods' },
     { label: "Generate equality operator (==)", picked: false, id: 'equalityOperator' },
   ];
 
