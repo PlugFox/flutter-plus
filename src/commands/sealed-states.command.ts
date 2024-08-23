@@ -43,7 +43,7 @@ export const sealedStates = async (uri: Uri) => {
   // Prompt the user for the list of states, defaulting to common states
   const statesInput = await vscode.window.showInputBox({
     prompt: 'Enter the states (camelCase) separated by commas',
-    value: 'idle, processing, successful, error',
+    value: 'idle, processing, successful, error, InProgress,Completed, Failed,123, 1, 2, 3;a;b ;;;,,,.;;..,abc, ACAB, МамаМылаРаму, 123abc, abc123',
   });
 
   if (!statesInput) {
@@ -51,23 +51,52 @@ export const sealedStates = async (uri: Uri) => {
     return;
   }
 
-  // Prepare a dictionary with different state formats
-  const states = statesInput.split(',').map(state => state.replace(/\s/g, '').trim())
-    .filter((state) => state.length !== 0)
-    .map(state => state.charAt(0).toLowerCase() + state.slice(1));
+  // Prepare a dictionary with different state formats by "," and ";".
+  const states = Array.from(new Set(statesInput.split(/,|;/)
+    .map(state => state.replace(/\s/g, '').trim())
+    .filter(state => state.length !== 0)
+    .filter(state => /^[a-zA-Z]/.test(state))
+    .filter(state => /^[A-Za-z0-9\s]+$/.test(state))
+    .map(state => state.charAt(0).toLowerCase() + state.slice(1))
+  ));
+
   if (states.length === 0) {
     vscode.window.showErrorMessage('Invalid states input.');
     return;
   }
+
   const stateFormats = states.reduce((acc, state) => {
-    const capitalizedState = state.charAt(0).toUpperCase() + state.slice(1);
+    const words = state.split(/(?=[A-Z])|_|-|\s/).filter(word => word.length > 0);
+
+    const pascalCase = words.map((word) => {
+      if (word.length === 1) {
+        return word.toUpperCase();
+      } else {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+    }).join('');
+
+    const camelCase = words.map((word, index) => {
+      if (index === 0) {
+        return word.toLowerCase();
+      } else if (word.length === 1) {
+        return word.toUpperCase();
+      } else {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+    }).join('');
+
+    const snakeCase = words.map(word => word.toLowerCase()).join('_');
+
     acc[state] = {
       original: state,
-      capitalized: capitalizedState,
-      snakeCase: state.toLowerCase().replace(/ /g, '_')
+      pascalCase: pascalCase,
+      camelCase: camelCase,
+      snakeCase: snakeCase
     };
+
     return acc;
-  }, {} as Record<string, { original: string, capitalized: string, snakeCase: string }>);
+  }, {} as Record<string, { original: string, pascalCase: string, camelCase: string, snakeCase: string }>);
 
   const options = [
     { label: "Nullable data", picked: true, id: 'nullableData' },
@@ -76,7 +105,7 @@ export const sealedStates = async (uri: Uri) => {
     { label: "Generate Initial state", picked: true, id: 'initialState' },
     { label: "Generate property getters", picked: true, id: 'propertyGetters' },
     { label: "Generate type alias", picked: true, id: 'typeAlias' },
-    { label: "Generate equality operator (==)", picked: false, id: 'equalityOperator' },
+    { label: "Generate equality operator (==)", picked: true, id: 'equalityOperator' },
   ];
 
   const selectedOptions = await vscode.window.showQuickPick(options, {
@@ -108,45 +137,64 @@ export const sealedStates = async (uri: Uri) => {
   codeBuilder.push(`/// {@endtemplate}`);
   codeBuilder.push(`sealed class \${1} extends _\\$\${1}Base {`);
 
-  // Generate the factory constructors for each state
-  Object.values(stateFormats).forEach(({ capitalized, original }) => {
-    codeBuilder.push(`  /// ${capitalized}`);
-    codeBuilder.push(`  /// {@macro \${2}}`);
-    codeBuilder.push(`  const factory \${1}.${original}({`);
-    codeBuilder.push(`    required ${dataType} data,`);
-    codeBuilder.push(`    String message,`);
-    codeBuilder.push(`  }) = \${1}\\$${capitalized};`);
-    codeBuilder.push('');
-  });
-
-  // Initial state
-  if (initialStateOption && Object.values(stateFormats).every(({ original }) => original !== 'initial')) {
-    codeBuilder.push(`  /// Initial`);
-    codeBuilder.push(`  /// {@macro \${2}}`);
-    codeBuilder.push(`  factory \${1}.initial({`);
-    codeBuilder.push(`    ${dataType} data,`);
-    codeBuilder.push(`    String? message,`);
-    codeBuilder.push(`  }) =>`);
-    codeBuilder.push(`      \${1}\\$${Object.values(stateFormats)[0].capitalized}(`);
-    codeBuilder.push(`        data: data,`);
-    codeBuilder.push(`        message: message ?? 'Initial',`);
-    codeBuilder.push(`      );`);
-    codeBuilder.push('');
-  }
-
   // Constructor
   codeBuilder.push(`  /// {@macro \${2}}`);
   codeBuilder.push(`  const \${1}({required super.data, required super.message});`);
+
+  // Generate the factory constructors for each state
+  Object.values(stateFormats).forEach(({ pascalCase, camelCase }) => {
+    codeBuilder.push('');
+    codeBuilder.push(`  /// ${pascalCase}`);
+    codeBuilder.push(`  /// {@macro \${2}}`);
+    codeBuilder.push(`  const factory \${1}.${camelCase}({`);
+    if (nullableDataOption) {
+      codeBuilder.push(`    ${dataType} data,`);
+    } else {
+      codeBuilder.push(`    required ${dataType} data,`);
+    }
+    codeBuilder.push(`    String message,`);
+    codeBuilder.push(`  }) = \${1}\\$${pascalCase};`);
+  });
+
+  // Initial state
+  if (initialStateOption && Object.values(stateFormats).every(({ camelCase }) => camelCase !== 'initial')) {
+    codeBuilder.push('');
+    codeBuilder.push(`  /// Initial`);
+    codeBuilder.push(`  /// {@macro \${2}}`);
+    codeBuilder.push(`  factory \${1}.initial({`);
+    if (nullableDataOption) {
+      codeBuilder.push(`    ${dataType} data,`);
+    } else {
+      codeBuilder.push(`    required ${dataType} data,`);
+    }
+    codeBuilder.push(`    String? message,`);
+    codeBuilder.push(`  }) =>`);
+    if (Object.values(stateFormats).find(({ camelCase }) => camelCase === 'idle')) {
+      codeBuilder.push(`      \${1}\\$Idle(`);
+    } else {
+      codeBuilder.push(`      \${1}\\$${Object.values(stateFormats)[0].pascalCase}(`);
+    }
+    codeBuilder.push(`        data: data,`);
+    codeBuilder.push(`        message: message ?? 'Initial',`);
+    codeBuilder.push(`      );`);
+  }
+
   codeBuilder.push(`}`);
   codeBuilder.push('');
 
   // Generate the classes for each state
-  Object.values(stateFormats).forEach(({ capitalized, snakeCase }) => {
-    codeBuilder.push(`/// ${capitalized}`);
-    codeBuilder.push(`final class \${1}\\$${capitalized} extends \${1} {`);
-    codeBuilder.push(`  const \${1}\\$${capitalized}({required super.data, super.message = '${capitalized}'});`);
+  Object.values(stateFormats).forEach(({ pascalCase, snakeCase }) => {
+    codeBuilder.push(`/// ${pascalCase}`);
+    codeBuilder.push(`final class \${1}\\$${pascalCase} extends \${1} {`);
+
+    if (nullableDataOption) {
+      codeBuilder.push(`  const \${1}\\$${pascalCase}({super.data, super.message = '${pascalCase}'});`);
+    } else {
+      codeBuilder.push(`  const \${1}\\$${pascalCase}({required super.data, super.message = '${pascalCase}'});`);
+    }
 
     if (typeAliasOption) {
+      codeBuilder.push('');
       codeBuilder.push(`  @override`);
       codeBuilder.push(`  String get type => '${snakeCase}';`);
     }
@@ -196,9 +244,9 @@ export const sealedStates = async (uri: Uri) => {
 
   // Property getters
   if (propertyGettersOption) {
-    Object.values(stateFormats).forEach(({ capitalized, snakeCase }) => {
-      codeBuilder.push(`  /// Check if is ${capitalized}.`);
-      codeBuilder.push(`  bool get is${capitalized} => this is \${1}\\$${capitalized};`);
+    Object.values(stateFormats).forEach(({ pascalCase, snakeCase }) => {
+      codeBuilder.push(`  /// Check if is ${pascalCase}.`);
+      codeBuilder.push(`  bool get is${pascalCase} => this is \${1}\\$${pascalCase};`);
       codeBuilder.push('');
     });
   }
@@ -208,39 +256,39 @@ export const sealedStates = async (uri: Uri) => {
     codeBuilder.push('');
     codeBuilder.push(`  /// Pattern matching for [\${1}].`);
     codeBuilder.push(`  R map<R>({`);
-    Object.values(stateFormats).forEach(({ original, capitalized }) => {
-      codeBuilder.push(`    required \${1}Match<R, \${1}\\$${capitalized}> ${original},`);
+    Object.values(stateFormats).forEach(({ pascalCase, camelCase }) => {
+      codeBuilder.push(`    required \${1}Match<R, \${1}\\$${pascalCase}> ${camelCase},`);
     });
     codeBuilder.push(`  }) =>`);
     codeBuilder.push(`      switch (this) {`);
-    Object.values(stateFormats).forEach(({ capitalized, original }) => {
-      codeBuilder.push(`        \${1}\\$${capitalized} s => ${original}(s),`);
+    Object.values(stateFormats).forEach(({ pascalCase, camelCase }) => {
+      codeBuilder.push(`        \${1}\\$${pascalCase} s => ${camelCase}(s),`);
     });
     codeBuilder.push(`        _ => throw AssertionError(),`);
     codeBuilder.push(`      };`);
     codeBuilder.push('');
     codeBuilder.push(`  /// Pattern matching for [\${1}].`);
     codeBuilder.push(`  R maybeMap<R>({`);
-    Object.values(stateFormats).forEach(({ original, capitalized }) => {
-      codeBuilder.push(`    \${1}Match<R, \${1}\\$${capitalized}>? ${original},`);
-    });
     codeBuilder.push(`    required R Function() orElse,`);
+    Object.values(stateFormats).forEach(({ pascalCase, camelCase }) => {
+      codeBuilder.push(`    \${1}Match<R, \${1}\\$${pascalCase}>? ${camelCase},`);
+    });
     codeBuilder.push(`  }) =>`);
     codeBuilder.push(`      map<R>(`);
-    Object.values(stateFormats).forEach(({ original }) => {
-      codeBuilder.push(`        ${original}: ${original} ?? (_) => orElse(),`);
+    Object.values(stateFormats).forEach(({ camelCase }) => {
+      codeBuilder.push(`        ${camelCase}: ${camelCase} ?? (_) => orElse(),`);
     });
     codeBuilder.push(`      );`);
     codeBuilder.push('');
     codeBuilder.push(`  /// Pattern matching for [\${1}].`);
     codeBuilder.push(`  R? mapOrNull<R>({`);
-    Object.values(stateFormats).forEach(({ original, capitalized }) => {
-      codeBuilder.push(`    \${1}Match<R, \${1}\\$${capitalized}>? ${original},`);
+    Object.values(stateFormats).forEach(({ pascalCase, camelCase }) => {
+      codeBuilder.push(`    \${1}Match<R, \${1}\\$${pascalCase}>? ${camelCase},`);
     });
     codeBuilder.push(`  }) =>`);
     codeBuilder.push(`      map<R?>(`);
-    Object.values(stateFormats).forEach(({ original }) => {
-      codeBuilder.push(`        ${original}: ${original} ?? (_) => null,`);
+    Object.values(stateFormats).forEach(({ camelCase }) => {
+      codeBuilder.push(`        ${camelCase}: ${camelCase} ?? (_) => null,`);
     });
     codeBuilder.push(`      );`);
   }
@@ -248,11 +296,21 @@ export const sealedStates = async (uri: Uri) => {
   // Equality operator
   if (equalityOperatorOption) {
     codeBuilder.push('');
-    codeBuilder.push('  @override');
-    codeBuilder.push(`  int get hashCode => data.hashCode;`);
-    codeBuilder.push('');
-    codeBuilder.push('  @override');
-    codeBuilder.push(`  bool operator ==(Object other) => identical(this, other);`);
+    if (typeAliasOption) {
+      codeBuilder.push('  @override');
+      codeBuilder.push(`  int get hashCode => Object.hash(type, data);`);
+      codeBuilder.push('');
+      codeBuilder.push('  @override');
+      codeBuilder.push(`  bool operator ==(Object other) => identical(this, other)`);
+      codeBuilder.push(`   || (other is _\\$\${1}Base && type == other.type && identical(data, other.data));`);
+    } else {
+      codeBuilder.push('  @override');
+      codeBuilder.push(`  int get hashCode => data.hashCode;`);
+      codeBuilder.push('');
+      codeBuilder.push('  @override');
+      codeBuilder.push(`  bool operator ==(Object other) => identical(this, other)`);
+      codeBuilder.push(`   || (other is _\\$\${1}Base && runtimeType == other.runtimeType && identical(data, other.data));`);
+    }
   }
 
   // Generate toString method
