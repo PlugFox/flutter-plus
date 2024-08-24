@@ -1,16 +1,15 @@
 import * as vscode from 'vscode';
 
 import {
-	sealedStates,
-	wrapWithListenableBuilder,
-	wrapWithRepaintBoundary,
-	wrapWithSizedBox,
-	wrapWithValueListenableBuilder,
-} from "./commands";
+	Disposable
+} from "vscode";
 
 import {
-	CodeActionWrap,
-} from './code-actions';
+	sealedStates
+} from "./commands";
+
+import { FlutterPlusConfig } from './config/config';
+import { wrapWith } from './utils';
 
 
 import {
@@ -21,6 +20,7 @@ import {
 /* import fs from 'fs';
 import path from 'path'; */
 
+import { CodeActionWrap } from './code-actions';
 import {
 	SdkCommands,
 } from './utils';
@@ -63,9 +63,6 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 /// Register all commands.
 function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
-		/* vscode.commands.registerCommand('flutter-plus.helloWorld', () => {
-			vscode.window.showInformationMessage('Hello World from Flutter Plus!');
-		}), */
 		vscode.commands.registerCommand("flutter-plus.sealed-states", sealedStates),
 	);
 }
@@ -88,16 +85,52 @@ function registerCommands(context: vscode.ExtensionContext) {
 
 /// Register all wrappers (Wrap With...).
 function registerWrappers(context: vscode.ExtensionContext) {
-	context.subscriptions.push(
-		vscode.commands.registerCommand("flutter-plus.wrap-sizedbox", wrapWithSizedBox),
-		vscode.commands.registerCommand("flutter-plus.wrap-listenablebuilder", wrapWithListenableBuilder),
-		vscode.commands.registerCommand("flutter-plus.wrap-valuelistenablebuilder", wrapWithValueListenableBuilder),
-		vscode.commands.registerCommand("flutter-plus.wrap-repaintboundary", wrapWithRepaintBoundary),
-		vscode.languages.registerCodeActionsProvider(
-			DART_MODE,
-			new CodeActionWrap(),
-		),
-	);
+	var wraps = $registerWrappers(context);
+	const disposable = vscode.workspace.onDidChangeConfiguration(event => {
+		if (!event.affectsConfiguration('flutter-plus')) {
+			return;
+		}
+
+		$unregisterWrappers(wraps);
+		wraps = $registerWrappers(context);
+	});
+
+	context.subscriptions.push(disposable);
 }
 
+function $unregisterWrappers(disposables: Array<Disposable>) {
+	disposables.forEach((disposable) => disposable.dispose());
+}
+
+function $registerWrappers(context: vscode.ExtensionContext): Array<Disposable> {
+	const configWraps = FlutterPlusConfig.getInstance().getCustomWraps();
+	const wraps: Array<CodeWrap> = configWraps.map((wrap) => {
+		return {
+			commandId: "flutter-plus.wrapWith." + wrap.name.toLowerCase().replace(/\s/g, "-"),
+			title: "Wrap with " + wrap.name,
+			command: () => wrapWith((selectedText) => wrap.body.join("\n").replace("\${widget}", selectedText)),
+		};
+	});
+
+	const subscriptions = [
+		...wraps.map((wrap) => {
+			return vscode.commands.registerCommand(wrap.commandId, wrap.command);
+		}),
+		vscode.languages.registerCodeActionsProvider(DART_MODE, new CodeActionWrap(wraps)),
+	];
+
+	context.subscriptions.push(
+		...subscriptions,
+	);
+
+	return subscriptions;
+}
+
+
 export function deactivate() { }
+
+export type CodeWrap = {
+	commandId: string,
+	title: string,
+	command: () => void,
+};

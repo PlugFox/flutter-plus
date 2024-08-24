@@ -8,11 +8,34 @@ This package extends your Flutter development experience by providing convenient
 
 Simply select the widget you want to wrap, and choose the appropriate "Wrap with..." command from the command palette, or use the provided snippets to quickly insert the desired wrapper code into your widget tree.
 
-- **Wrap with SizedBox**: Surround your widget with a `SizedBox` to provide constraints on its size, such as width, height, or aspect ratio.
+This extension includes the following standard "Wrap with..." commands:
+
 - **Wrap with ListenableBuilder**: Easily wrap any widget with a `ListenableBuilder` to rebuild the widget based on changes in a `Listenable` object.
 - **Wrap with ValueListenableBuilder<T>**: Automatically wrap your widget with a `ValueListenableBuilder` to react to changes in a `ValueListenable<T>`.
 - **Wrap with RepaintBoundary**: Encapsulate your widget within a `RepaintBoundary` to isolate its repaint process, improving performance in complex UIs.
+- **Wrap with SliverPadding**: Wrap your widget with a `SliverPadding` to add padding around a sliver widget in a `CustomScrollView`.
 
+In order to add custom "Wrap with" commands, you can change the configuration in `flutter-plus.wraps` settings. The configuration is an array of objects with the following properties:
+
+- **name**: The name of the command that will appear in the command palette.
+- **body**: The snippet body that will be inserted into the editor when the command is executed. Use `${0...N}` to indicate the position of the selected text. In order to insert the selected text, use `${widget}`.
+  
+Example configuration:
+
+```json
+{
+  "wraps": [
+    {
+      "name": "Wrap with CustomWidget",
+      "body": [
+        "CustomWidget(",
+        "  child: ${widget},",
+        ")"
+      ]
+    }
+  ]
+}
+```
 
 ## Markdown snippets
 

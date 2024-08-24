@@ -65,26 +65,6 @@
         "command": "flutter-plus.sealed-states",
         "title": "Create Sealed States",
         "category": "Flutter Plus"
-      },
-      {
-        "command": "flutter-plus.wrap-sizedbox",
-        "title": "Wrap with SizedBox",
-        "category": "Flutter Plus"
-      },
-      {
-        "command": "flutter-plus.wrap-listenablebuilder",
-        "title": "Wrap with ListenableBuilder",
-        "category": "Flutter Plus"
-      },
-      {
-        "command": "flutter-plus.wrap-valuelistenablebuilder",
-        "title": "Wrap with ValueListenableBuilder<T>",
-        "category": "Flutter Plus"
-      },
-      {
-        "command": "flutter-plus.wrap-repaintboundary",
-        "title": "Wrap with RepaintBoundary",
-        "category": "Flutter Plus"
       }
     ],
     "views": {
@@ -132,7 +112,69 @@
         "language": "dart",
         "path": "./snippets/flutter.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Wraps",
+      "properties": {
+        "flutter-plus.wraps": {
+          "description": "Set up custom Wrap With here",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the Widget"
+              },
+              "body": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Body of the Widget, use $ for cursor position and ${widget} for selected text"
+              }
+            }
+          },
+          "default": [
+            {
+              "name": "ListenableBuilder",
+              "body": [
+                "ListenableBuilder(",
+                "  listenable: ${1:listenable},",
+                "  builder: (context, _) => ${widget},",
+                ")"
+              ]
+            },
+            {
+              "name": "ValueListenableBuilder",
+              "body": [
+                "ValueListenableBuilder(",
+                "  valueListenable: ${1:valueListenable},",
+                "  builder: (context, value, _) => ${widget},",
+                ")"
+              ]
+            },
+            {
+              "name": "RepaintBoundary",
+              "body": [
+                "RepaintBoundary(",
+                "  child: ${widget},",
+                ")"
+              ]
+            },
+            {
+              "name": "SliverPadding",
+              "body": [
+                "SliverPadding(",
+                "  padding: const EdgeInsets.all(${1:8.0}),",
+                "  sliver: ${widget},",
+                ")"
+              ]
+            }
+          ]
+        }
+      }
+    }
   },
   "extensionDependencies": [
     "Dart-Code.dart-code",
