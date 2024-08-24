@@ -2,7 +2,6 @@ import { workspace } from "vscode";
 
 export type CustomWrapConfig = {
   name: string,
-  id: string,
   body: Array<string>,
 };
 
@@ -17,8 +16,8 @@ export class FlutterPlusConfig {
   }
 
   public getCustomWraps(): Array<CustomWrapConfig> {
-    const config = workspace.getConfiguration('flutterplus');
-    const customWraps = config.get<Array<CustomWrapConfig>>('customWraps');
+    const config = workspace.getConfiguration('flutter-plus');
+    const customWraps = config.get<Array<CustomWrapConfig>>('wraps');
 
     return customWraps || [];
   }
