@@ -107,7 +107,7 @@ function $registerWrappers(context: vscode.ExtensionContext): Array<Disposable> 
 	const wraps: Array<CodeWrap> = configWraps.map((wrap) => {
 		return {
 			commandId: "flutter-plus.wrapWith." + wrap.name.toLowerCase().replace(/\s/g, "-"),
-			title: wrap.name,
+			title: "Wrap with " + wrap.name,
 			command: () => wrapWith((selectedText) => wrap.body.join("\n").replace("\${widget}", selectedText)),
 		};
 	});

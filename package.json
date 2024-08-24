@@ -161,6 +161,15 @@
                 "  child: ${widget},",
                 ")"
               ]
+            },
+            {
+              "name": "SliverPadding",
+              "body": [
+                "SliverPadding(",
+                "  padding: const EdgeInsets.all(${1:8.0}),",
+                "  sliver: ${widget},",
+                ")"
+              ]
             }
           ]
         }
