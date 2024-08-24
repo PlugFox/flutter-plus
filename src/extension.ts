@@ -20,10 +20,10 @@ import {
 /* import fs from 'fs';
 import path from 'path'; */
 
+import { CodeActionWrap } from './code-actions';
 import {
 	SdkCommands,
 } from './utils';
-import { CodeActionWrap } from './code-actions';
 
 const DART_MODE = { language: "dart", scheme: "file" };
 
@@ -112,13 +112,15 @@ function $registerWrappers(context: vscode.ExtensionContext): Array<Disposable> 
 		};
 	});
 
-	const subscriptions = wraps.map((wrap) => {
-		return vscode.commands.registerCommand(wrap.commandId, wrap.command);
-	});
+	const subscriptions = [
+		...wraps.map((wrap) => {
+			return vscode.commands.registerCommand(wrap.commandId, wrap.command);
+		}),
+		vscode.languages.registerCodeActionsProvider(DART_MODE, new CodeActionWrap(wraps)),
+	];
 
 	context.subscriptions.push(
 		...subscriptions,
-		vscode.languages.registerCodeActionsProvider(DART_MODE, new CodeActionWrap(wraps)),
 	);
 
 	return subscriptions;
