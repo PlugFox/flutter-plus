@@ -69,11 +69,21 @@ function registerWrapperCommands(context: vscode.ExtensionContext): Disposable[]
 			commandId: `flutter-plus.wrapWith.${wrap.name.toLowerCase().replace(/\s/g, "-")}`,
 			title: `Wrap with ${wrap.name}`,
 			command: () => wrapWith(selectedText => wrap.body.join("\n").replace("${widget}", selectedText)),
-		})).filter((wrap, index, self) =>
+		}));
+
+		const filteredWraps = wraps.filter((wrap, index, self) =>
 			index === self.findIndex(t => t.commandId === wrap.commandId)
 		);
 
-		const subscriptions = wraps.map(wrap => 
+		if (filteredWraps.length < wraps.length) {
+			const duplicates = wraps.filter((wrap, index, self) =>
+				index !== self.findIndex(t => t.commandId === wrap.commandId)
+			);
+
+			vscode.window.showWarningMessage(`Multiple wraps with the same command ID found: ${duplicates.map(d => d.commandId).join(", ")}`);
+		}
+
+		const subscriptions = filteredWraps.map(wrap =>
 			vscode.commands.registerCommand(wrap.commandId, wrap.command)
 		);
 
@@ -87,7 +97,7 @@ function registerWrapperCommands(context: vscode.ExtensionContext): Disposable[]
 	}
 }
 
-export function deactivate() {}
+export function deactivate() { }
 
 export type CodeWrap = {
 	commandId: string;
