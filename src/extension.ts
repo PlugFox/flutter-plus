@@ -100,7 +100,7 @@ function registerWrapperCommands(context: vscode.ExtensionContext): Disposable[]
 export function deactivate() { }
 
 export type CodeWrap = {
-	commandId: string;
-	title: string;
-	command: () => void;
+	commandId: string,
+	title: string,
+	command: () => void,
 };
