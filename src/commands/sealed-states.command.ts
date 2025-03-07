@@ -3,6 +3,41 @@ import * as vscode from 'vscode';
 import { Uri } from "vscode";
 
 export const sealedStates = async (uri: Uri) => {
+  // If no URI is provided, use the active text editor
+  if (!uri) {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor) {
+      uri = activeEditor.document.uri;
+    } else {
+      const selectedFiles = await vscode.window.showOpenDialog({
+        canSelectMany: false,
+        openLabel: 'Select a Dart file',
+        filters: {
+          'Dart Files': ['dart']
+        }
+      });
+
+      if (!selectedFiles || selectedFiles.length === 0) {
+         vscode.window.showErrorMessage('No file selected.');
+        return;
+      }
+
+      uri = selectedFiles[0];
+    }
+  }
+
+  let document = await vscode.workspace.openTextDocument(uri);
+  let editor = vscode.window.activeTextEditor;
+
+  if (!editor || editor.document.uri.fsPath !== uri.fsPath) {
+    editor = await vscode.window.showTextDocument(document);
+  }
+
+  if (!editor) {
+    vscode.window.showErrorMessage('Could not open the file.');
+    return;
+  }
+
   // Extract the file name in a cross-platform way
   const fileName = path.basename(uri.fsPath, '.dart');
   if (!fileName) {
@@ -326,7 +361,7 @@ export const sealedStates = async (uri: Uri) => {
   codeBuilder.push('');
 
   // Insert the generated code into the current document
-  const editor = vscode.window.activeTextEditor;
+  //const editor = vscode.window.activeTextEditor;
   if (editor) {
     editor.insertSnippet(new vscode.SnippetString(codeBuilder.join('\n')));
     /* editor.edit(editBuilder => {
