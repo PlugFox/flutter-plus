@@ -141,6 +141,8 @@ export const sealedStates = async (uri: Uri) => {
     { label: "Generate property getters", picked: true, id: 'propertyGetters' },
     { label: "Generate type alias", picked: true, id: 'typeAlias' },
     { label: "Generate equality operator (==)", picked: true, id: 'equalityOperator' },
+    { label: "Add error object", picked: false, id: 'error' },
+    { label: "Add stackTrace", picked: false, id: 'stackTrace' },
   ];
 
   const selectedOptions = await vscode.window.showQuickPick(options, {
@@ -155,6 +157,8 @@ export const sealedStates = async (uri: Uri) => {
   let propertyGettersOption = selectedOptions.find(option => option.id === 'propertyGetters') !== undefined;
   let typeAliasOption = selectedOptions.find(option => option.id === 'typeAlias') !== undefined;
   let initialStateOption = selectedOptions.find(option => option.id === 'initialState') !== undefined;
+  let errorOption = selectedOptions.find(option => option.id === 'error') !== undefined;
+  let stackTraceOption = selectedOptions.find(option => option.id === 'stackTrace') !== undefined;
 
   const dataType = nullableDataOption ? '\${1}Entity?' : '\${1}Entity';
 
@@ -174,7 +178,7 @@ export const sealedStates = async (uri: Uri) => {
 
   // Constructor
   codeBuilder.push(`  /// {@macro \${2}}`);
-  codeBuilder.push(`  const \${1}({required super.data, required super.message});`);
+  codeBuilder.push(`  const \${1}({required super.data, required super.message${errorOption ? ', super.error' : ''}${stackTraceOption ? ', super.stackTrace' : ''}});`);
 
   // Generate the factory constructors for each state
   Object.values(stateFormats).forEach(({ pascalCase, camelCase }) => {
@@ -188,6 +192,12 @@ export const sealedStates = async (uri: Uri) => {
       codeBuilder.push(`    required ${dataType} data,`);
     }
     codeBuilder.push(`    String message,`);
+    if (errorOption) {
+      codeBuilder.push(`    Object? error,`);
+    }
+    if (stackTraceOption) {
+      codeBuilder.push(`    StackTrace? stackTrace,`);
+    }
     codeBuilder.push(`  }) = \${1}\\$${pascalCase};`);
   });
 
@@ -203,6 +213,12 @@ export const sealedStates = async (uri: Uri) => {
       codeBuilder.push(`    required ${dataType} data,`);
     }
     codeBuilder.push(`    String? message,`);
+    if (errorOption) {
+      codeBuilder.push(`    Object? error,`);
+    }
+    if (stackTraceOption) {
+      codeBuilder.push(`    StackTrace? stackTrace,`);
+    }
     codeBuilder.push(`  }) =>`);
     if (Object.values(stateFormats).find(({ camelCase }) => camelCase === 'idle')) {
       codeBuilder.push(`      \${1}\\$Idle(`);
@@ -211,6 +227,12 @@ export const sealedStates = async (uri: Uri) => {
     }
     codeBuilder.push(`        data: data,`);
     codeBuilder.push(`        message: message ?? 'Initial',`);
+    if (errorOption) {
+      codeBuilder.push(`        error: error,`);
+    }
+    if (stackTraceOption) {
+      codeBuilder.push(`        stackTrace: stackTrace,`);
+    }
     codeBuilder.push(`      );`);
   }
 
@@ -223,10 +245,11 @@ export const sealedStates = async (uri: Uri) => {
     codeBuilder.push(`final class \${1}\\$${pascalCase} extends \${1} {`);
 
     if (nullableDataOption) {
-      codeBuilder.push(`  const \${1}\\$${pascalCase}({super.data, super.message = '${pascalCase}'});`);
+      codeBuilder.push(`  const \${1}\\$${pascalCase}({super.data, super.message = '${pascalCase}'${errorOption ? ', super.error' : ''}${stackTraceOption ? ', super.stackTrace' : ''}`);
     } else {
-      codeBuilder.push(`  const \${1}\\$${pascalCase}({required super.data, super.message = '${pascalCase}'});`);
+      codeBuilder.push(`  const \${1}\\$${pascalCase}({required super.data, super.message = '${pascalCase}'${errorOption ? ', super.error' : ''}${stackTraceOption ? ', super.stackTrace' : ''}`);
     }
+    codeBuilder.push(`});`);
 
     if (typeAliasOption) {
       codeBuilder.push('');
@@ -248,7 +271,8 @@ export const sealedStates = async (uri: Uri) => {
   codeBuilder.push('');
   codeBuilder.push('@immutable');
   codeBuilder.push(`abstract base class _\\$\${1}Base {`);
-  codeBuilder.push(`  const _\\$\${1}Base({required this.data, required this.message});`);
+  codeBuilder.push(`  const _\\$\${1}Base({required this.data, required this.message${errorOption ? ', this.error' : ''}${stackTraceOption ? ', this.stackTrace' : ''}`);
+  codeBuilder.push(`});`);
 
   // Type alias
   if (typeAliasOption) {
@@ -268,6 +292,22 @@ export const sealedStates = async (uri: Uri) => {
   codeBuilder.push(`  /// Message or description.`);
   codeBuilder.push(`  @nonVirtual`);
   codeBuilder.push(`  final String message;`);
+
+  // Error object
+  if (errorOption) {
+    codeBuilder.push('');
+    codeBuilder.push(`  /// Error object.`);
+    codeBuilder.push(`  @nonVirtual`);
+    codeBuilder.push(`  final Object? error;`);
+  }
+
+  // Stack trace object
+  if (stackTraceOption) {
+    codeBuilder.push('');
+    codeBuilder.push(`  /// Stack trace object.`);
+    codeBuilder.push(`  @nonVirtual`);
+    codeBuilder.push(`  final StackTrace? stackTrace;`);
+  }
 
   // Check existence of data
   if (nullableDataOption) {
